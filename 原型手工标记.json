@@ -1,0 +1,36 @@
+[
+  {
+    "id": "dashboard:system:01",
+    "context": "首页.html::page",
+    "page": "首页.html",
+    "title": "首页信息总览",
+    "body": "当前首页展示监控总数及在线情况、作业计划视频回传、作业前／作业中／作业后统计、疑似违章和隐患分析、违规与人员排行。页面现有数字和图表为原型演示，不代表真实园区实时数据；本轮仅补充说明，不改首页业务内容。",
+    "updated": "2026-10-20",
+    "source": "本轮用户确认及当前代码核对",
+    "deleted": true,
+    "system": true,
+    "updatedAt": "2026-10-20T00:00:00.000Z",
+    "target": ":scope",
+    "offset": {
+      "x": 18,
+      "y": 145
+    }
+  },
+  {
+    "id": "dashboard:system:02",
+    "context": "首页.html::page",
+    "page": "首页.html",
+    "title": "导航与业务入口",
+    "body": "通过统一侧栏进入报警中心、查处管理、数据统计、责任区域管理、参数配置和报警处置移动端。各业务页独立打开对应HTML；未接入的演示区域不视为已实现业务功能。",
+    "updated": "2026-10-20",
+    "source": "本轮用户确认及当前代码核对",
+    "deleted": true,
+    "system": true,
+    "updatedAt": "2026-10-20T00:00:00.000Z",
+    "target": ":scope",
+    "offset": {
+      "x": 18,
+      "y": 179
+    }
+  }
+]

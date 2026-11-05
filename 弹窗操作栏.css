@@ -1,0 +1,19 @@
+/* Shared modal/drawer footer placement across desktop business pages. */
+body .n-drawer .n-drawer-footer,
+body .n-card.n-modal > .n-card__footer,
+body .n-dialog .n-dialog__action{display:flex!important;justify-content:center!important;align-items:center;flex:none;gap:12px}
+body .n-drawer .n-drawer-footer > .n-space,
+body .n-card.n-modal > .n-card__footer > .n-space{width:100%;justify-content:center!important;flex-wrap:wrap!important}
+body .n-drawer .n-drawer-content{display:flex;flex-direction:column;min-height:0;height:100%}
+body .n-drawer .n-drawer-header{flex:none}
+body .n-drawer .n-drawer-body{flex:1 1 0%;min-height:0;overflow:auto}
+body .n-drawer .n-drawer-footer{margin-top:auto}
+body .n-card.n-modal{display:flex;flex-direction:column;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px)}
+body .n-card.n-modal > .n-card-header{flex:none}
+body .n-card.n-modal > .n-card__content{flex:1 1 auto;min-height:0;overflow-y:auto}
+body .n-card.n-modal > .n-card__footer{margin-top:auto}
+body .n-dialog{display:flex;flex-direction:column;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px)}
+body .n-dialog .n-dialog__title{flex:none}
+body .n-dialog .n-dialog__content{min-height:0;overflow-y:auto}
+body .n-dialog .n-dialog__action{margin-top:auto;flex-wrap:wrap}
+body .business-modal-footer{display:flex;justify-content:center!important;align-items:center;flex:none;margin-top:auto;gap:12px}

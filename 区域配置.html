@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>区域配置 - AI智能报警处置平台</title>
+    <script src="assets/vendor/tailwindcss.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0879ff',
+                        sidebarDark: '#0F2040',
+                        sidebarActive: '#1947A3',
+                        textMain: '#24344d',
+                        textSecondary: '#6E7681',
+                        textLight: '#8190a5',
+                        borderLine: '#d8e5f4',
+                        bgPage: '#F5F7FA',
+                        levelOne: '#E8F3FF',
+                        levelTwo: '#E6FFEA',
+                        levelOneText: '#0879ff',
+                        levelTwoText: '#00B42A',
+                        riskMajor: '#F53F3F',
+                        riskMajorBg: '#FFECE8',
+                        riskLarger: '#FF7D00',
+                        riskLargerBg: '#FFF7E8',
+                        riskGeneral: '#FFC400',
+                        riskGeneralBg: '#FFFCE8',
+                        riskLow: '#00B42A',
+                        riskLowBg: '#E8FFEA'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        figmaCard: '0 1px 2px rgba(0,0,0,0.06)',
+                        figmaHover: '0 2px 8px rgba(22,93,255,0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .radius-sm { border-radius: 6px; }
+            .radius-md { border-radius: 8px; }
+            .transition-figma { transition: all 0.2s ease; }
+            .sidebar-item {
+                @apply flex items-center gap-3 px-4 py-2.5 text-white/70 text-sm rounded-md transition-figma cursor-pointer;
+            }
+            .sidebar-item-active {
+                @apply bg-sidebarActive text-white;
+            }
+            .sidebar-item:hover:not(.sidebar-item-active) {
+                @apply bg-white/10 text-white;
+            }
+            .tree-node-hover:hover {
+                background-color: rgba(22, 93, 255, 0.06);
+            }
+            .table-row:hover {
+                background-color: rgba(22, 93, 255, 0.04);
+            }
+            .tag-level1 {
+                @apply px-2 py-0.5 text-xs rounded-sm bg-levelOne text-levelOneText;
+            }
+            .tag-level2 {
+                @apply px-2 py-0.5 text-xs rounded-sm bg-levelTwo text-levelTwoText;
+            }
+            .tag-risk {
+                @apply px-2 py-0.5 text-xs rounded-sm inline-flex items-center gap-1;
+            }
+            .tag-risk::before {
+                content: '';
+                @apply w-1.5 h-1.5 rounded-full inline-block;
+            }
+            .tag-risk-major { @apply bg-riskMajorBg text-riskMajor; }
+            .tag-risk-major::before { @apply bg-riskMajor; }
+            .tag-risk-larger { @apply bg-riskLargerBg text-riskLarger; }
+            .tag-risk-larger::before { @apply bg-riskLarger; }
+            .tag-risk-general { @apply bg-riskGeneralBg text-riskGeneral; }
+            .tag-risk-general::before { @apply bg-riskGeneral; }
+            .tag-risk-low { @apply bg-riskLowBg text-riskLow; }
+            .tag-risk-low::before { @apply bg-riskLow; }
+        }
+        body {
+            font-family: 'Inter', system-ui, PingFang SC, Microsoft YaHei, sans-serif;
+            background-color: #F5F7FA;
+            overflow: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DCDFE6;
+            border-radius: 3px;
+        }
+    </style>
+<link rel="stylesheet" href="区域配置.css?v=20261104-owner-phone"></head>
+
+<body class="h-screen flex">
+    <!-- ========== 左侧侧边栏 ========== -->
+
+
+    <!-- ========== 右侧主区域 ========== -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- 顶部导航栏 -->
+        <header class="h-[60px] bg-white border-b border-borderLine flex items-center justify-between px-6 shrink-0">
+            <div class="text-sm text-textSecondary">
+                <span>区域管理</span>
+                <span class="mx-2">/</span>
+                <span class="text-textMain font-medium">区域配置</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <div class="w-8 h-8 rounded-full bg-bgPage flex items-center justify-center text-textSecondary">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="text-sm">
+                        <div class="text-textMain">张安全</div>
+                        <div class="text-[11px] text-textLight">安全环保部·安全科</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主体滚动区域 -->
+        <main class="flex-1 overflow-auto p-6">
+            <!-- 移除最大宽度限制，实现全屏自适应宽度 -->
+            <div class="w-full">
+                <!-- 页面标题 -->
+                <!-- <div class="mb-6">
+                    <h1 class="text-xl font-semibold text-textMain">作业区域管理</h1>
+                    <p class="text-sm text-textSecondary mt-1">管理作业区域及所属作业水平，关联摄像头并设置区域责任人</p>
+                </div> -->
+
+                <div class="flex gap-5 w-full">
+                    <!-- 右侧表格区域 自适应占满剩余宽度 -->
+                    <div class="flex-1 flex flex-col gap-4 min-w-0">
+                        <!-- 筛选栏 -->
+                        <div
+                            class="bg-white radius-md shadow-figmaCard p-4 flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex flex-wrap gap-3 items-center">
+                                <div class="relative">
+                                    <input type="text" placeholder="请输入作业区域名称模糊搜索"
+                                        class="w-[300px] pl-3 pr-9 py-2 border border-borderLine radius-sm text-sm outline-none focus:border-primary transition-figma">
+                                    <i
+                                        class="fa fa-search absolute right-3 top-1/2 -translate-y-1/2 text-textLight"></i>
+                                </div>
+                                <!-- <select class="w-[180px] py-2 px-3 border border-borderLine radius-sm text-sm text-textSecondary outline-none focus:border-primary transition-figma">
+                                    <option>所属单位</option>
+                                </select> -->
+                            </div>
+                            <button id="addRootAreaButton"
+                                class="hidden bg-primary text-white px-4 py-2 radius-sm items-center gap-2 text-sm transition-figma hover:bg-[#065fd4]">
+                                <i class="fa fa-plus"></i>新增一级作业区域
+                            </button>
+                        </div>
+
+                        <!-- 表格卡片 -->
+                        <div class="bg-white radius-md shadow-figmaCard overflow-hidden flex-1">
+                            <div class="overflow-x-auto">
+                                <table id="areaConfigTable" class="w-full text-sm">
+                                    <thead>
+                                        <tr class="bg-[#F7F8FA]">
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                序号</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                作业区域名称</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                层级</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                风险等级</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                区域责任人</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                所属单位</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                关联摄像头</th>
+                                            <th
+                                                class="px-4 py-3 text-left font-medium text-textSecondary whitespace-nowrap">
+                                                操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="areaTableBody">
+                                        <tr class="table-row border-t border-borderLine transition-figma">
+                                            <td class="px-4 py-3">1</td>
+                                            <td class="px-4 py-3  items-center gap-1 text-primary">
+                                                <i class="fa"></i>东鞍采区
+                                            </td>
+                                            <td class="px-4 py-3"><span class="tag-level1">一级</span></td>
+                                            <td class="px-4 py-3">--</td>
+                                            <td class="px-4 py-3 text-textLight">—</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3 text-textLight">—</td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <span class="text-primary cursor-pointer hover:underline">新增下级</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-row border-t border-borderLine transition-figma bg-[#FAFBFC]">
+                                            <td class="px-4 py-3 text-textLight">1.1</td>
+                                            <td class="px-4 py-3 pl-8 text-textMain">xxx二级区域</td>
+                                            <td class="px-4 py-3"><span class="tag-level2">二级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-larger">较大风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">李安全 / 139****5678</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">东帮采区xxx二级区域1号摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">移动</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">东帮采区xxx二级区域2号摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <!-- <span class="text-primary cursor-pointer hover:underline">新增下级</span> -->
+                                                     <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-row border-t border-borderLine transition-figma bg-[#FAFBFC]">
+                                            <td class="px-4 py-3 text-textLight">1.2</td>
+                                            <td class="px-4 py-3 pl-8 text-textMain">xxx二级区域</td>
+                                            <td class="px-4 py-3"><span class="tag-level2">二级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-general">一般风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">张伟 / 137****9012</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">东帮采区-xxx二级区域摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">执法仪</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">东帮采区-xxx二级区域皮带机尾摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <!-- <span class="text-primary cursor-pointer hover:underline">新增下级</span> -->
+                                                     <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-row border-t border-borderLine transition-figma bg-[#FAFBFC]">
+                                            <td class="px-4 py-3 text-textLight">1.3</td>
+                                            <td class="px-4 py-3 pl-8 text-textMain">xxx二级区域</td>
+                                            <td class="px-4 py-3"><span class="tag-level2">二级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-low">低风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">赵强 / 136****3456</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">东帮采区xxx二级区域运输巷摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">东帮采区xxx二级区域回风巷摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <!-- <span class="text-primary cursor-pointer hover:underline">新增下级</span> -->
+                                                     <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-row border-t border-borderLine transition-figma">
+                                            <td class="px-4 py-3">2</td>
+                                            <td class="px-4 py-3  items-center gap-1 text-primary">
+                                                <i class="fa"></i>主运输巷
+                                            </td>
+                                            <td class="px-4 py-3"><span class="tag-level1">一级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-larger">较大风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">李安全 / 139****5678</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">主运输巷入口摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">主运输巷出口摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">移动</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <span
+                                                        class="text-primary cursor-pointer hover:underline">新增下级</span>
+                                                         <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+               
+                                        <tr class="table-row border-t border-borderLine transition-figma">
+                                            <td class="px-4 py-3">3</td>
+                                            <td class="px-4 py-3 text-primary">南帮边坡</td>
+                                            <td class="px-4 py-3"><span class="tag-level1">一级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-major">重大风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">张伟 / 137****9012</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center gap-1">
+                                                    <i class="fa fa-camera text-textLight"></i>
+                                                    <span class="text-textMain">南帮边坡全景摄像头</span>
+                                                    <span class="text-[11px] text-textLight ml-2">移动</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <span
+                                                        class="text-primary cursor-pointer hover:underline">新增下级</span>
+                                                         <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-row border-t border-borderLine transition-figma">
+                                            <td class="px-4 py-3">4</td>
+                                            <td class="px-4 py-3  items-center gap-1 text-primary">
+                                                <i class="fa"></i>皮带运输系统
+                                            </td>
+                                            <td class="px-4 py-3"><span class="tag-level1">一级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-general">一般风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">赵强 / 136****3456</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">皮带机头摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">移动</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fa fa-camera text-textLight"></i>
+                                                        <span class="text-textMain">皮带机尾摄像头</span>
+                                                        <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                    </div>
+                                                </div>
+                                                
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <span
+                                                        class="text-primary cursor-pointer hover:underline">新增下级</span>
+                                                         <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-row border-t border-borderLine transition-figma">
+                                            <td class="px-4 py-3">5</td>
+                                            <td class="px-4 py-3 text-primary">地表作业区</td>
+                                            <td class="px-4 py-3"><span class="tag-level1">一级</span></td>
+                                            <td class="px-4 py-3"><span class="tag-risk tag-risk-low">低风险</span></td>
+                                            <td class="px-4 py-3 text-textMain">刘洋 / 158****2468</td>
+                                            <td class="px-4 py-3 text-textMain">齐大山选矿</td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center gap-1">
+                                                    <i class="fa fa-camera text-textLight"></i>
+                                                    <span class="text-textMain">地表作业区全景摄像头</span>
+                                                    <span class="text-[11px] text-textLight ml-2">固定</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex gap-4">
+                                                    <span
+                                                        class="text-primary cursor-pointer hover:underline">新增下级</span>
+                                                         <span class="text-primary cursor-pointer hover:underline">区域划分</span>
+                                                    <span class="text-primary cursor-pointer hover:underline">编辑</span>
+                                                    <span class="text-red-500 cursor-pointer hover:underline">删除</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- 分页 -->
+                            <div class="px-4 py-3 border-t border-borderLine flex items-center justify-between">
+                                <span class="text-sm text-textSecondary">共 18 条</span>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <select class="border border-borderLine px-2 py-1 radius-sm">
+                                        <option>10条/页</option>
+                                    </select>
+                                    <button
+                                        class="w-7 h-7 flex items-center justify-center border border-borderLine radius-sm hover:bg-bgPage transition-figma">&lt;</button>
+                                    <button
+                                        class="w-7 h-7 flex items-center justify-center bg-primary text-white radius-sm">1</button>
+                                    <button
+                                        class="w-7 h-7 flex items-center justify-center border border-borderLine radius-sm hover:bg-bgPage transition-figma">2</button>
+                                    <button
+                                        class="w-7 h-7 flex items-center justify-center border border-borderLine radius-sm hover:bg-bgPage transition-figma">&gt;</button>
+                                    <span class="text-textSecondary ml-2">跳至</span>
+                                    <input type="text" value="1"
+                                        class="w-10 h-7 border border-borderLine radius-sm text-center">
+                                    <span class="text-textSecondary">页</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 新增/编辑弹窗占位结构 -->
+    <div id="modalAdd" class="fixed inset-0 bg-black/40 hidden z-50 items-center justify-center">
+        <div class="bg-white radius-md w-full max-w-[560px] shadow-figmaHover p-6 mx-4">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="font-medium text-lg text-textMain">新增作业区域</h3>
+                <i class="fa fa-times cursor-pointer text-textLight hover:text-textMain transition-figma"></i>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm text-textSecondary block mb-2">所属单位 <span
+                            class="text-red-500">*</span></label>
+                    <select class="w-full border border-borderLine radius-sm px-3 py-2.5 text-sm">
+                        <option>齐大山选矿</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-sm text-textSecondary block mb-2">上级作业区域</label>
+                    <select class="w-full border border-borderLine radius-sm px-3 py-2.5 text-sm">
+                        <option>无（顶级区域）</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-sm text-textSecondary block mb-2">区域名称 <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" class="w-full border border-borderLine radius-sm px-3 py-2.5 text-sm">
+                </div>
+                <div>
+                    <label class="text-sm text-textSecondary block mb-2">风险等级 <span
+                            class="text-red-500">*</span></label>
+                    <select class="w-full border border-borderLine radius-sm px-3 py-2.5 text-sm">
+                        <option value="">请选择风险等级</option>
+                        <option>重大风险</option>
+                        <option>较大风险</option>
+                        <option>一般风险</option>
+                        <option>低风险</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-sm text-textSecondary block mb-2">区域责任人 <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" class="w-full border border-borderLine radius-sm px-3 py-2.5 text-sm">
+                </div>
+                <div>
+                    <label class="text-sm text-textSecondary block mb-2">关联摄像头</label>
+                    <div class="border border-borderLine radius-sm p-3 min-h-[80px] text-textLight text-sm">待选择摄像头</div>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button
+                    class="px-4 py-2 border border-borderLine radius-sm hover:bg-bgPage transition-figma">取消</button>
+                <button
+                    class="px-4 py-2 bg-primary text-white radius-sm hover:bg-[#065fd4] transition-figma">确认保存</button>
+            </div>
+        </div>
+    </div>
+    <div id="areaDrawer" class="fixed inset-0 bg-black/40 hidden z-50"><aside class="absolute right-0 top-0 h-full w-[480px] max-w-full bg-white shadow-xl flex flex-col"><div class="h-16 px-6 border-b border-borderLine flex items-center justify-between"><div><h3 id="areaDrawerTitle" class="font-medium text-lg">新增一级作业区域</h3><p class="text-xs text-textLight mt-1">请填写作业区域信息</p></div><button id="closeAreaDrawer"><i class="fa fa-times text-textLight"></i></button></div><div class="flex-1 overflow-y-auto p-6 space-y-5"><div><label class="text-sm text-textSecondary block mb-2">所属单位 *</label><select id="areaUnit" class="w-full border border-borderLine radius-sm px-3 py-2.5"><option>齐大山选矿</option><option>眼前山分公司</option><option>东鞍山分公司</option></select></div><div><label class="text-sm text-textSecondary block mb-2">上级作业区域</label><input id="areaParent" readonly class="w-full bg-gray-50 border border-borderLine radius-sm px-3 py-2.5" value="无（顶级区域）"></div><div><label class="text-sm text-textSecondary block mb-2">区域名称 *</label><input id="areaName" class="w-full border border-borderLine radius-sm px-3 py-2.5" placeholder="请输入区域名称"></div><div><label class="text-sm text-textSecondary block mb-2">风险等级</label><select id="areaRisk" class="w-full border border-borderLine radius-sm px-3 py-2.5"><option value="--">无</option><option>重大风险</option><option>较大风险</option><option>一般风险</option><option>低风险</option></select></div><div><label class="text-sm text-textSecondary block mb-2">区域责任人</label><input id="areaOwner" class="w-full border border-borderLine radius-sm px-3 py-2.5" placeholder="请输入姓名 / 联系方式"></div></div><div class="px-6 py-4 border-t flex justify-end gap-3"><button id="cancelAreaDrawer" class="px-4 py-2 border radius-sm">取消</button><button id="saveArea" class="px-4 py-2 bg-primary text-white radius-sm">保存</button></div></aside></div>
+    <div id="deleteConfirm" class="fixed inset-0 bg-black/40 hidden z-[60] items-center justify-center"><div class="bg-white radius-md w-[420px] p-6 shadow-xl"><h3 class="font-medium text-lg">确认删除</h3><p id="deleteMessage" class="text-sm text-textSecondary mt-3"></p><div class="flex justify-end gap-3 mt-6"><button id="cancelDelete" class="px-4 py-2 border radius-sm">取消</button><button id="confirmDelete" class="px-4 py-2 bg-red-500 text-white radius-sm">确认删除</button></div></div></div>
+    <div id="gisModal" class="fixed inset-0 bg-black/40 hidden z-[60] items-center justify-center"><div class="bg-white radius-md w-[860px] max-w-[calc(100%-32px)] shadow-xl overflow-hidden"><div class="px-6 py-4 border-b flex justify-between"><div><h3 class="font-medium text-lg">GIS区域划分</h3><p id="gisSubtitle" class="text-xs text-textLight mt-1"></p></div><button id="closeGis"><i class="fa fa-times"></i></button></div><div class="p-5"><div id="gisMap" class="relative h-[480px] overflow-hidden rounded-md border cursor-crosshair" style="background-color:#e8f0e6;background-image:linear-gradient(rgba(73,111,83,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(73,111,83,.12) 1px,transparent 1px);background-size:32px 32px"><div class="absolute left-5 top-5 bg-white/95 px-3 py-2 rounded shadow text-xs">单击地图选择或取消区域</div><div id="gisSelection" class="hidden absolute left-[42%] top-[30%] w-[220px] h-[150px] bg-blue-500/25 border-2 border-primary" style="clip-path:polygon(12% 8%,88% 0,100% 72%,62% 100%,0 80%)"><span class="absolute inset-0 flex items-center justify-center text-primary font-medium">当前选中区域</span></div></div></div><div class="px-6 py-4 border-t flex justify-between"><span id="gisState" class="text-sm text-textSecondary"></span><div class="flex gap-3"><button id="cancelGis" class="px-4 py-2 border radius-sm">取消</button><button id="saveGis" class="px-4 py-2 bg-primary text-white radius-sm">确认划分</button></div></div></div></div>
+    <script>
+    (()=>{const d=document,drawer=d.getElementById('areaDrawer'),tb=d.getElementById('areaTableBody'),nm=d.getElementById('areaName'),pa=d.getElementById('areaParent'),rk=d.getElementById('areaRisk'),ow=d.getElementById('areaOwner'),un=d.getElementById('areaUnit');let mode,row,del,gact,selected=false;const rn=r=>r.children[1].textContent.trim(),show=e=>{e.classList.remove('hidden');e.classList.add('flex')},hide=e=>{e.classList.add('hidden');e.classList.remove('flex')};function open(m,r){mode=m;row=r;d.getElementById('areaDrawerTitle').textContent=m==='edit'?'编辑作业区域':m==='child'?'新增下级作业区域':'新增一级作业区域';pa.value=m==='child'?rn(r):m==='edit'&&r.children[0].textContent.includes('.')?'东鞍采区':'无（顶级区域）';nm.value=m==='edit'?rn(r):'';rk.value=m==='edit'?(r.children[3].textContent.trim()||'--'):'--';ow.value=m==='edit'?r.children[4].textContent.trim().replace('—',''):'';drawer.classList.remove('hidden')}d.getElementById('addRootAreaButton').onclick=()=>open('root');['closeAreaDrawer','cancelAreaDrawer'].forEach(x=>d.getElementById(x).onclick=()=>drawer.classList.add('hidden'));d.getElementById('saveArea').onclick=()=>{if(!nm.value.trim()){nm.focus();return}if(mode==='edit'){row.children[1].textContent=nm.value.trim();row.children[3].textContent=rk.value;row.children[4].textContent=ow.value||'—';row.children[5].textContent=un.value}else{const child=mode==='child',r=d.createElement('tr');r.className='table-row border-t border-borderLine '+(child?'bg-[#FAFBFC]':'');r.innerHTML=`<td class="px-4 py-3">新增</td><td class="px-4 py-3 ${child?'pl-8':'text-primary'}">${nm.value.trim()}</td><td class="px-4 py-3"><span class="${child?'tag-level2':'tag-level1'}">${child?'二级':'一级'}</span></td><td class="px-4 py-3">${rk.value}</td><td class="px-4 py-3">${ow.value||'—'}</td><td class="px-4 py-3">${un.value}</td><td class="px-4 py-3">—</td><td class="px-4 py-3"><div class="flex gap-4"><span class="text-primary cursor-pointer hover:underline">新增下级</span>${child?'<span class="text-primary cursor-pointer hover:underline">区域划分</span>':''}<span class="text-primary cursor-pointer hover:underline">编辑</span><span class="text-red-500 cursor-pointer hover:underline">删除</span></div></td>`;child?row.insertAdjacentElement('afterend',r):tb.appendChild(r)}drawer.classList.add('hidden')};tb.onclick=e=>{const a=e.target.closest('span.cursor-pointer');if(!a)return;const r=a.closest('tr'),t=a.textContent.trim();if(t==='新增下级')open('child',r);else if(t==='编辑')open('edit',r);else if(t==='删除'){del=r;d.getElementById('deleteMessage').textContent=`删除“${rn(r)}”后不可恢复，是否继续？`;show(d.getElementById('deleteConfirm'))}else if(t==='区域划分'||t==='已划分区域'){gact=a;selected=t==='已划分区域';d.getElementById('gisSubtitle').textContent='当前区域：'+rn(r);render();show(d.getElementById('gisModal'))}};d.getElementById('cancelDelete').onclick=()=>hide(d.getElementById('deleteConfirm'));d.getElementById('confirmDelete').onclick=()=>{del&&del.remove();hide(d.getElementById('deleteConfirm'))};function render(){d.getElementById('gisSelection').classList.toggle('hidden',!selected);d.getElementById('gisState').textContent=selected?'已选择区域，再次单击可取消':'尚未选择区域';d.getElementById('saveGis').textContent=selected?'确认划分':'确认取消划分'}d.getElementById('gisMap').onclick=()=>{selected=!selected;render()};['closeGis','cancelGis'].forEach(x=>d.getElementById(x).onclick=()=>hide(d.getElementById('gisModal')));d.getElementById('saveGis').onclick=()=>{gact.textContent=selected?'已划分区域':'区域划分';gact.classList.toggle('text-green-600',selected);hide(d.getElementById('gisModal'))}})();
+    </script>
+    <style>
+        #areaDrawer div:has(> #areaParent),
+        #areaDrawer div:has(> #areaRisk) { display: none; }
+    </style>
+    <script>
+        (() => {
+            const ownerInput = document.getElementById('areaOwner');
+            ownerInput.placeholder = '请输入姓名';
+            const phoneField = document.createElement('div');
+            phoneField.innerHTML = '<label class="text-sm text-textSecondary block mb-2">手机号码</label><input id="areaOwnerPhone" type="tel" maxlength="11" inputmode="numeric" class="w-full border border-borderLine radius-sm px-3 py-2.5" placeholder="请输入手机号码">';
+            ownerInput.parentElement.insertAdjacentElement('afterend', phoneField);
+            const phoneInput = document.getElementById('areaOwnerPhone');
+            const tableBody = document.getElementById('areaTableBody');
+            const addRootButton = document.getElementById('addRootAreaButton');
+            const saveButton = document.getElementById('saveArea');
+
+            addRootButton.addEventListener('click', () => { phoneInput.value = ''; });
+            tableBody.addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action) return;
+                if (action.textContent.trim() === '新增下级') phoneInput.value = '';
+                if (action.textContent.trim() === '编辑') {
+                    const value = action.closest('tr').children[4].textContent.trim();
+                    const parts = value.split('/').map(item => item.trim());
+                    ownerInput.value = parts[0] === '—' ? '' : parts[0];
+                    phoneInput.value = parts[1] || '';
+                }
+            });
+            phoneInput.addEventListener('input', () => { phoneInput.value = phoneInput.value.replace(/\D/g, ''); });
+            saveButton.addEventListener('click', () => {
+                const activeName = ownerInput.value.trim();
+                const activePhone = phoneInput.value.trim();
+                setTimeout(() => {
+                    const rows = [...tableBody.rows];
+                    const target = rows.find(row => row.children[1].textContent.trim() === document.getElementById('areaName').value.trim());
+                    if (target) target.children[4].textContent = activeName ? `${activeName}${activePhone ? ' / ' + activePhone : ''}` : '—';
+                });
+            });
+        })();
+    </script>
+    <!-- 新增下级专用摄像头选择弹窗：结构与新增作业计划保持一致 -->
+    <div id="cameraPicker" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-[70] items-center justify-center"><div class="bg-white rounded-lg shadow-xl w-[1080px] max-w-[calc(100%-32px)] h-[760px] flex flex-col"><div class="px-6 py-4 border-b flex justify-between"><h2 class="text-lg font-semibold">选择摄像头</h2><button id="closeCameraPicker"><i class="fa fa-times"></i></button></div><div class="px-6 py-3 bg-blue-50 text-primary text-sm"><i class="fa fa-info-circle mr-2"></i>系统已根据作业区域自动匹配以下摄像头，您可在列表中勾选摄像头进行关联</div><div class="px-6 py-4 border-b flex justify-between"><span id="cameraAreaName">作业区域：--</span><span>已选 <b id="cameraSelectedCount" class="text-primary">0</b> 台　<button id="clearCameras" class="border rounded px-3 py-1">清空已选</button></span></div><div class="flex flex-1 overflow-hidden"><div class="w-[250px] border-r p-4 text-sm"><input class="w-full border rounded px-3 py-2 mb-4" placeholder="请输入区域名称"><div class="space-y-3"><div>▾ 鞍钢矿业</div><div class="pl-4">▾ 齐大山选矿厂</div><div class="pl-8 bg-blue-50 text-primary py-2">东鞍山作业区域</div><div class="pl-8">主运输巷</div><div class="pl-8">皮带运输系统</div></div></div><div class="flex-1 flex flex-col"><div class="p-4 border-b flex justify-between text-sm"><div class="flex gap-5"><span class="text-primary border-b-2 border-primary">全部 (6)</span><span>固定摄像头 (4)</span><span>移动摄像头 (2)</span></div><input class="border rounded px-3 py-1.5" placeholder="请输入摄像头名称搜索"></div><div class="flex-1 overflow-y-auto"><table class="w-full text-sm"><thead class="bg-gray-50 sticky top-0"><tr><th class="p-3"></th><th class="p-3 text-left">摄像头名称</th><th class="p-3 text-left">位置</th><th class="p-3 text-left">设备类型</th><th class="p-3 text-left">设备编号</th><th class="p-3 text-left">在线状态</th></tr></thead><tbody id="cameraList"></tbody></table></div></div></div><div class="px-6 py-4 border-t flex justify-end gap-3"><button id="cancelCameraPicker" class="border rounded px-6 py-2">取消</button><button id="confirmCameras" class="bg-primary text-white rounded px-6 py-2">确认选择 (0)</button></div></div></div>
+    <script>
+    (()=>{const d=document,unit=d.getElementById('areaUnit').parentElement,owner=d.getElementById('areaOwner').parentElement,phone=d.getElementById('areaOwnerPhone').parentElement,name=d.getElementById('areaName'),picker=d.getElementById('cameraPicker');let child=false,chosen=[];const field=d.createElement('div');field.id='childCameraField';field.className='hidden';field.innerHTML='<label class="text-sm text-textSecondary block mb-2">关联摄像头</label><button id="openCameraPicker" class="w-full border border-borderLine radius-sm px-3 py-3 text-left text-primary"><i class="fa fa-video-camera mr-2"></i><span id="selectedCameraText">请选择摄像头</span><i class="fa fa-angle-right float-right"></i></button>';owner.insertAdjacentElement('afterend',field);const rows=[['主运输巷西段-01','主运输巷','固定','CAM-001','在线'],['22306工作面-采煤机前方','22306工作面','固定','CAM-002','在线'],['皮带机头摄像头','皮带运输系统','固定','CAM-003','在线'],['地表作业区全景摄像头','地表作业区','固定','CAM-004','离线'],['移动布控球机01','东鞍采区','移动','MBQJ-001','在线'],['执法记录仪03','主运输巷','移动','ZFJ-003','在线']];d.getElementById('cameraList').innerHTML=rows.map(x=>`<tr class="border-b"><td class="p-3"><input class="camera-check" type="checkbox" value="${x[0]}"></td><td class="p-3">${x[0]}</td><td class="p-3">${x[1]}</td><td class="p-3">${x[2]}</td><td class="p-3">${x[3]}</td><td class="p-3 ${x[4]==='在线'?'text-green-600':'text-red-500'}">● ${x[4]}</td></tr>`).join('');function mode(v){child=v;unit.classList.toggle('hidden',v);owner.classList.toggle('hidden',v);phone.classList.toggle('hidden',v);field.classList.toggle('hidden',!v)}d.getElementById('addRootAreaButton').addEventListener('click',()=>mode(false));d.getElementById('areaTableBody').addEventListener('click',e=>{const a=e.target.closest('span.cursor-pointer');if(!a)return;if(a.textContent.trim()==='新增下级'){mode(true);chosen=[];update()}else if(a.textContent.trim()==='编辑')mode(false)},true);function update(){d.querySelectorAll('.camera-check').forEach(c=>c.checked=chosen.includes(c.value));d.getElementById('cameraSelectedCount').textContent=chosen.length;d.getElementById('confirmCameras').textContent=`确认选择 (${chosen.length})`;if(d.getElementById('selectedCameraText'))d.getElementById('selectedCameraText').textContent=chosen.length?`已选择 ${chosen.length} 台摄像头`:'请选择摄像头'}function hide(){picker.classList.add('hidden');picker.classList.remove('flex')}d.getElementById('openCameraPicker').onclick=()=>{d.getElementById('cameraAreaName').textContent='作业区域：'+(name.value.trim()||'待填写');picker.classList.remove('hidden');picker.classList.add('flex')};['closeCameraPicker','cancelCameraPicker'].forEach(x=>d.getElementById(x).onclick=hide);d.getElementById('cameraList').onchange=e=>{if(!e.target.classList.contains('camera-check'))return;chosen=e.target.checked?[...chosen,e.target.value]:chosen.filter(x=>x!==e.target.value);update()};d.getElementById('clearCameras').onclick=()=>{chosen=[];update()};d.getElementById('confirmCameras').onclick=hide;d.getElementById('saveArea').addEventListener('click',()=>{if(!child)return;const n=name.value.trim(),list=[...chosen];setTimeout(()=>{const r=[...d.getElementById('areaTableBody').rows].find(x=>x.children[1].textContent.trim()===n);if(r)r.children[6].innerHTML=list.length?list.map(x=>`<div><i class="fa fa-camera text-textLight mr-1"></i>${x}</div>`).join(''):'—'})})})();
+    </script>
+    <script>
+        (() => {
+            const riskField = document.getElementById('areaRisk').parentElement;
+            document.getElementById('addRootAreaButton').addEventListener('click', () => riskField.style.display = 'none');
+            document.getElementById('areaTableBody').addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action) return;
+                if (action.textContent.trim() === '新增下级') riskField.style.display = 'block';
+                if (action.textContent.trim() === '编辑') riskField.style.display = 'none';
+            }, true);
+        })();
+    </script>
+    <script>
+        (() => {
+            const ownerField = document.getElementById('areaOwner').parentElement;
+            const phoneField = document.getElementById('areaOwnerPhone').parentElement;
+            const phoneLabel = phoneField.querySelector('label');
+            phoneLabel.textContent = '区域责任人手机号';
+            ownerField.insertAdjacentElement('afterend', phoneField);
+            document.getElementById('areaTableBody').addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action || action.textContent.trim() !== '新增下级') return;
+                ownerField.classList.remove('hidden');
+                phoneField.classList.remove('hidden');
+                document.getElementById('areaOwner').value = '';
+                document.getElementById('areaOwnerPhone').value = '';
+            });
+        })();
+    </script>
+    <script>
+        (() => {
+            const unitField = document.getElementById('areaUnit').parentElement;
+            const riskField = document.getElementById('areaRisk').parentElement;
+            const ownerField = document.getElementById('areaOwner').parentElement;
+            const phoneField = document.getElementById('areaOwnerPhone').parentElement;
+            const cameraField = document.getElementById('childCameraField');
+            const tableBody = document.getElementById('areaTableBody');
+
+            tableBody.addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action || action.textContent.trim() !== '编辑') return;
+                unitField.classList.add('hidden');
+                riskField.style.display = 'block';
+                ownerField.classList.remove('hidden');
+                phoneField.classList.remove('hidden');
+                cameraField.classList.remove('hidden');
+
+                const row = action.closest('tr');
+                const cameraNames = [...row.children[6].querySelectorAll('div')]
+                    .map(item => item.textContent.trim()).filter(Boolean);
+                if (document.getElementById('selectedCameraText')) document.getElementById('selectedCameraText').textContent = cameraNames.length
+                    ? `已关联 ${cameraNames.length} 台摄像头`
+                    : '请选择摄像头';
+            }, true);
+        })();
+    </script>
+    <script>
+        (() => {
+            const unitField = document.getElementById('areaUnit').parentElement;
+            const riskField = document.getElementById('areaRisk').parentElement;
+            const ownerField = document.getElementById('areaOwner').parentElement;
+            const phoneField = document.getElementById('areaOwnerPhone').parentElement;
+            const cameraField = document.getElementById('childCameraField');
+
+            document.getElementById('areaTableBody').addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action || action.textContent.trim() !== '编辑') return;
+                const row = action.closest('tr');
+                const isLevelOne = row.children[2].textContent.trim() === '一级';
+
+                unitField.classList.toggle('hidden', !isLevelOne);
+                riskField.style.display = isLevelOne ? 'none' : 'block';
+                cameraField.classList.toggle('hidden', isLevelOne);
+                ownerField.classList.remove('hidden');
+                phoneField.classList.remove('hidden');
+
+                if (isLevelOne) {
+                    const unitValue = row.children[5].textContent.trim();
+                    const unitSelect = document.getElementById('areaUnit');
+                    if ([...unitSelect.options].some(option => option.value === unitValue)) {
+                        unitSelect.value = unitValue;
+                    }
+                    document.getElementById('selectedCameraText').textContent = '请选择摄像头';
+                }
+            }, true);
+        })();
+    </script>
+    <script>
+        (() => {
+            const tableBody = document.getElementById('areaTableBody');
+            const cameraField = document.getElementById('childCameraField');
+            const pickerButton = document.getElementById('openCameraPicker');
+            const linkedList = document.createElement('div');
+            linkedList.id = 'linkedCameraList';
+            linkedList.className = 'hidden border border-borderLine radius-sm overflow-hidden';
+            pickerButton.insertAdjacentElement('afterend', linkedList);
+
+            const showPickerButton = () => {
+                pickerButton.classList.remove('hidden');
+                linkedList.classList.add('hidden');
+                linkedList.innerHTML = '';
+            };
+
+            tableBody.addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action) return;
+                const actionName = action.textContent.trim();
+
+                if (actionName === '新增下级') {
+                    showPickerButton();
+                    return;
+                }
+                if (actionName !== '编辑') return;
+
+                const row = action.closest('tr');
+                const isLevelOne = row.children[2].textContent.trim() === '一级';
+                if (isLevelOne) return;
+
+                const cameraNames = [...row.children[6].querySelectorAll('div')]
+                    .map(item => item.textContent.trim())
+                    .filter(Boolean);
+
+                pickerButton.classList.add('hidden');
+                linkedList.classList.remove('hidden');
+                linkedList.innerHTML = cameraNames.length
+                    ? cameraNames.map((cameraName, index) => `
+                        <div class="flex items-center justify-between px-3 py-3 ${index ? 'border-t border-borderLine' : ''}">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="w-8 h-8 rounded bg-blue-50 text-primary flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-video-camera"></i>
+                                </span>
+                                <span class="text-sm text-textMain truncate">${cameraName}</span>
+                            </div>
+                         
+                        </div>`).join('')
+                    : '<div class="px-3 py-4 text-sm text-textLight text-center">暂无关联摄像头</div>';
+            }, true);
+
+            document.getElementById('addRootAreaButton').addEventListener('click', showPickerButton);
+        })();
+    </script>
+    <script>
+        (() => {
+            const d = document;
+            const tableBody = d.getElementById('areaTableBody');
+            const addRootButton = d.getElementById('addRootAreaButton');
+            const drawer = d.getElementById('areaDrawer');
+            const saveButton = d.getElementById('saveArea');
+            let pendingParent = null;
+            let editingAreaRow = null;
+
+            addRootButton.classList.add('hidden');
+
+            const cellText = (row, index) => row.children[index].textContent.trim();
+            const isEmptyCamera = cell => ['—', '--', ''].includes(cell.textContent.trim());
+            const actionHtml = level => level === '二级'
+                ? '<div class="flex gap-4"><span class="text-primary cursor-pointer hover:underline">新增作业区域</span></div>'
+                : level === '三级'
+                    ? '<div class="flex gap-4"><span class="text-primary cursor-pointer hover:underline">编辑</span><span class="text-red-500 cursor-pointer hover:underline">删除</span></div>'
+                    : '';
+            const cameraHtml = cell => isEmptyCamera(cell) ? '—' : cell.innerHTML;
+
+            function createLevelTwo(serial, name, unit) {
+                const row = d.createElement('tr');
+                row.className = 'table-row border-t border-borderLine transition-figma bg-[#FAFBFC]';
+                row.innerHTML = `<td class="px-4 py-3 text-textLight">${serial}</td><td class="px-4 py-3 pl-8 text-textMain">${name}分区</td><td class="px-4 py-3"><span class="tag-level2">二级</span></td><td class="px-4 py-3">--</td><td class="px-4 py-3 text-textLight">—</td><td class="px-4 py-3 text-textMain">${unit}</td><td class="px-4 py-3 text-textLight">—</td><td class="px-4 py-3">${actionHtml('二级')}</td>`;
+                return row;
+            }
+
+            function createLevelThree(serial, name, risk, owner, unit, cameras) {
+                const row = d.createElement('tr');
+                row.className = 'table-row border-t border-borderLine transition-figma bg-white';
+                row.innerHTML = `<td class="px-4 py-3 text-textLight">${serial}</td><td class="px-4 py-3 pl-12 text-textMain">${name}</td><td class="px-4 py-3"><span class="px-2 py-0.5 text-xs rounded-sm bg-purple-50 text-purple-600">三级</span></td><td class="px-4 py-3">${risk}</td><td class="px-4 py-3 text-textMain">${owner}</td><td class="px-4 py-3 text-textMain">${unit}</td><td class="px-4 py-3">${cameras}</td><td class="px-4 py-3">${actionHtml('三级')}</td>`;
+                return row;
+            }
+
+            [...tableBody.rows].forEach(row => {
+                const level = cellText(row, 2);
+                const serial = cellText(row, 0);
+                const name = cellText(row, 1);
+                const unit = cellText(row, 5);
+                const cameras = cameraHtml(row.children[6]);
+
+                if (level === '一级') {
+                    row.children[6].innerHTML = '—';
+                    row.children[7].innerHTML = actionHtml('一级');
+                    if (cameras !== '—') {
+                        const levelTwo = createLevelTwo(`${serial}.1`, name, unit);
+                        const levelThree = createLevelThree(`${serial}.1.1`, `${name}作业区域`, cellText(row, 3), cellText(row, 4), unit, cameras);
+                        row.insertAdjacentElement('afterend', levelTwo);
+                        levelTwo.insertAdjacentElement('afterend', levelThree);
+                        row.children[3].textContent = '--';
+                        row.children[4].textContent = '—';
+                    }
+                }
+
+                if (level === '二级') {
+                    const thirdName = name.replace(/二级区域/g, '作业区域') + '01';
+                    const levelThree = createLevelThree(`${serial}.1`, thirdName, cellText(row, 3), cellText(row, 4), unit, cameras);
+                    row.children[3].textContent = '--';
+                    row.children[4].textContent = '—';
+                    row.children[6].innerHTML = '—';
+                    row.children[7].innerHTML = actionHtml('二级');
+                    row.insertAdjacentElement('afterend', levelThree);
+                }
+            });
+
+            const legacySave = saveButton.onclick;
+            saveButton.onclick = event => {
+                if (!pendingParent) {
+                    const division = d.getElementById('areaDivisionSelect').value;
+                    const name = d.getElementById('areaName').value.trim();
+                    const result = legacySave && legacySave.call(saveButton, event);
+                    if (editingAreaRow && name) editingAreaRow.dataset.areaDivision = division;
+                    return result;
+                }
+                const name = d.getElementById('areaName').value.trim();
+                if (!name) {
+                    d.getElementById('areaName').focus();
+                    return;
+                }
+                const parentSerial = cellText(pendingParent, 0);
+                let last = pendingParent;
+                let count = 0;
+                while (last.nextElementSibling && cellText(last.nextElementSibling, 2) === '三级') {
+                    last = last.nextElementSibling;
+                    count += 1;
+                }
+                const newRow = createLevelThree(
+                    `${parentSerial}.${count + 1}`,
+                    name,
+                    d.getElementById('areaRisk').value,
+                    d.getElementById('areaOwner').value.trim() || '—',
+                    cellText(pendingParent, 5),
+                    '—'
+                );
+                newRow.dataset.areaDivision = d.getElementById('areaDivisionSelect').value;
+                last.insertAdjacentElement('afterend', newRow);
+                setCameraSummary(newRow, []);
+                drawer.classList.add('hidden');
+                pendingParent = null;
+            };
+
+            const cameraField = d.getElementById('childCameraField');
+            if (cameraField) cameraField.remove();
+
+            const requiredLabels = [
+                d.querySelector('label[for="areaName"]') || d.getElementById('areaName').previousElementSibling,
+                d.querySelector('label[for="areaRisk"]') || d.getElementById('areaRisk').previousElementSibling,
+                d.querySelector('label[for="areaUnit"]') || d.getElementById('areaUnit').previousElementSibling
+            ].filter(Boolean);
+            requiredLabels.forEach(label => {
+                label.innerHTML = label.textContent.replace(/\s*\*\s*$/, '') + ' <span class="text-red-500">*</span>';
+            });
+
+            saveButton.addEventListener('click', event => {
+                const riskField = d.getElementById('areaRisk').parentElement;
+                const riskVisible = getComputedStyle(riskField).display !== 'none' && !riskField.classList.contains('hidden');
+                if (riskVisible && d.getElementById('areaRisk').value === '--') {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    d.getElementById('areaRisk').classList.add('border-red-500');
+                    d.getElementById('areaRisk').focus();
+                } else {
+                    d.getElementById('areaRisk').classList.remove('border-red-500');
+                }
+            }, true);
+
+            const deviceDrawer = d.createElement('div');
+            deviceDrawer.id = 'deviceDrawer';
+            deviceDrawer.className = 'fixed inset-0 bg-black/40 hidden z-[80]';
+            deviceDrawer.innerHTML = `<aside class="absolute right-0 top-0 h-full w-[460px] max-w-full bg-white shadow-xl flex flex-col">
+                <div class="h-16 px-6 border-b border-borderLine flex items-center justify-between"><div><h3 class="font-medium text-lg">关联摄像头</h3><p id="deviceDrawerSubtitle" class="text-xs text-textLight mt-1"></p></div><button id="closeDeviceDrawer"><i class="fa fa-times text-textLight"></i></button></div>
+                <div class="px-6 py-4 bg-blue-50 text-sm text-primary"><i class="fa fa-info-circle mr-2"></i>以下设备由系统根据三级区域自动关联</div>
+                <div id="deviceDrawerList" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+            </aside>`;
+            d.body.appendChild(deviceDrawer);
+
+            const rowDevices = new WeakMap();
+            const deviceIcon = type => type === '移动'
+                ? { icon: 'fa-dot-circle-o', color: 'bg-emerald-50 text-emerald-600' }
+                : type === '执法'
+                    ? { icon: 'fa-id-card-o', color: 'bg-amber-50 text-amber-600' }
+                    : { icon: 'fa-video-camera', color: 'bg-blue-50 text-primary' };
+            function setCameraSummary(row, devices) {
+                rowDevices.set(row, devices);
+                row.dataset.linkedCameras = JSON.stringify(devices);
+                const cell = row.children[6];
+                cell.innerHTML = devices.length
+                    ? `<button class="camera-count text-primary hover:underline whitespace-nowrap" type="button"><i class="fa fa-video-camera mr-1"></i>${devices.length} 台</button>`
+                    : '<span class="text-textLight">0 台</span>';
+            }
+            function extractDevices(row) {
+                const cameraCell = row.children[6];
+                let items = [...cameraCell.querySelectorAll(':scope > div > div')];
+                if (!items.length) {
+                    items = [...cameraCell.querySelectorAll(':scope > div')]
+                        .filter(item => item.querySelector(':scope > .text-textMain'));
+                }
+                return items.map((item, index) => {
+                    const name = item.querySelector('.text-textMain')?.textContent.trim() || `摄像头${index + 1}`;
+                    const rawType = item.querySelector('.text-\\[11px\\]')?.textContent.trim() || '固定';
+                    const type = rawType.includes('执法') ? '执法' : rawType.includes('移动') ? '移动' : '固定';
+                    return { name, type, code: `${type === '固定' ? 'CAM' : type === '移动' ? 'MBQJ' : 'ZFJ'}-${String(index + 1).padStart(3, '0')}` };
+                });
+            }
+            [...tableBody.rows].filter(row => cellText(row, 2) === '三级').forEach(row => setCameraSummary(row, extractDevices(row)));
+            window.AreaConfigDevices = { get: row => rowDevices.get(row) || [], set: setCameraSummary, refresh: () => normalizeActions() };
+
+            const openDeviceDrawer = row => {
+                const devices = rowDevices.get(row) || [];
+                d.getElementById('deviceDrawerSubtitle').textContent = `${cellText(row, 2)}区域：${cellText(row, 1)} · 共 ${devices.length} 台`;
+                d.getElementById('deviceDrawerList').innerHTML = devices.length ? devices.map(device => {
+                    const style = deviceIcon(device.type);
+                    return `<div class="border border-borderLine rounded-lg p-4 flex items-center gap-3"><span class="w-11 h-11 rounded-lg ${style.color} flex items-center justify-center shrink-0"><i class="fa ${style.icon} text-lg"></i></span><div class="min-w-0 flex-1"><div class="font-medium text-sm truncate">${device.name}</div><div class="text-xs text-textLight mt-1">设备编号：${device.code}</div></div><span class="text-xs px-2 py-1 rounded ${style.color}">${device.type}</span></div>`;
+                }).join('') : '<div class="py-16 text-center text-textLight"><i class="fa fa-video-camera text-3xl mb-3 block"></i>暂无关联摄像头</div>';
+                deviceDrawer.classList.remove('hidden');
+            };
+            d.getElementById('closeDeviceDrawer').onclick = () => deviceDrawer.classList.add('hidden');
+            deviceDrawer.onclick = event => { if (event.target === deviceDrawer) deviceDrawer.classList.add('hidden'); };
+            tableBody.addEventListener('click', event => {
+                const countButton = event.target.closest('.camera-count');
+                if (countButton) openDeviceDrawer(countButton.closest('tr'));
+            });
+
+            const divisionModal = d.getElementById('gisModal');
+            const divisionMap = d.getElementById('gisMap');
+            const divisionTitle = divisionModal.querySelector('h3');
+            const divisionHint = divisionModal.querySelector('p');
+            const divisionState = d.getElementById('gisState');
+            const divisionSave = d.getElementById('saveGis');
+            let divisionAction = null;
+            let selectedZone = [];
+
+            divisionTitle.textContent = '作业区域划分';
+            divisionHint.textContent = '请选择楼栋、楼层及对应房间或片区';
+            divisionMap.className = 'h-[500px] rounded-md border border-borderLine bg-slate-50 overflow-hidden';
+            divisionMap.innerHTML = `
+                <div class="h-full flex flex-col">
+                    <div class="px-5 py-4 bg-white border-b border-borderLine flex items-center gap-4">
+                        <label for="buildingSelect" class="text-sm text-textSecondary">楼栋</label>
+                        <input id="buildingSelect" type="text" readonly aria-readonly="true" class="border border-borderLine rounded px-3 py-2 text-sm bg-gray-50 w-[180px]" />
+                        <label for="floorSelect" class="text-sm text-textSecondary ml-4">楼层</label>
+                        <input id="floorSelect" type="text" readonly aria-readonly="true" class="border border-borderLine rounded px-3 py-2 text-sm bg-gray-50 w-[140px]" />
+                        <span class="ml-auto text-xs text-textLight"><i class="fa fa-info-circle mr-1"></i>支持多选，再次单击可取消</span>
+                    </div>
+                    <div class="flex-1 p-6">
+                        <div class="h-full border-2 border-slate-300 bg-white rounded-lg p-4 grid grid-cols-4 grid-rows-3 gap-3 relative">
+                            <button data-zone="配电室" class="zone-cell col-span-1 row-span-1 border-2 border-slate-300 rounded bg-slate-50 hover:border-primary hover:bg-blue-50 text-sm">配电室</button>
+                            <button data-zone="主控室" class="zone-cell col-span-2 row-span-1 border-2 border-slate-300 rounded bg-slate-50 hover:border-primary hover:bg-blue-50 text-sm">主控室</button>
+                            <button data-zone="设备间" class="zone-cell col-span-1 row-span-1 border-2 border-slate-300 rounded bg-slate-50 hover:border-primary hover:bg-blue-50 text-sm">设备间</button>
+                            <button data-zone="东侧生产区" class="zone-cell col-span-2 row-span-2 border-2 border-slate-300 rounded bg-slate-50 hover:border-primary hover:bg-blue-50 text-sm">东侧生产区</button>
+                            <div class="col-span-1 row-span-2 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-textLight text-sm"><i class="fa fa-arrows-v mr-2"></i>楼梯/通道</div>
+                            <button data-zone="西侧作业区" class="zone-cell col-span-1 row-span-2 border-2 border-slate-300 rounded bg-slate-50 hover:border-primary hover:bg-blue-50 text-sm">西侧作业区</button>
+                            <div class="absolute left-1/2 top-[34%] bottom-3 w-8 -translate-x-1/2 bg-slate-100 border-x border-slate-300 flex items-center justify-center"><span class="text-[11px] text-textLight [writing-mode:vertical-rl]">中央走廊</span></div>
+                        </div>
+                    </div>
+                </div>`;
+
+            const resetZones = () => {
+                divisionMap.querySelectorAll('.zone-cell').forEach(item => item.className = item.className.replace(' border-primary bg-blue-50 text-primary', ''));
+            };
+            divisionMap.onclick = event => {
+                const zone = event.target.closest('.zone-cell');
+                if (!zone) return;
+                const zoneName = zone.dataset.zone;
+                if (selectedZone.includes(zoneName)) {
+                    selectedZone = selectedZone.filter(item => item !== zoneName);
+                    zone.classList.remove('border-primary', 'bg-blue-50', 'text-primary');
+                } else {
+                    selectedZone.push(zoneName);
+                    zone.classList.add('border-primary', 'bg-blue-50', 'text-primary');
+                }
+                divisionState.textContent = selectedZone.length
+                    ? `已选择：${d.getElementById('buildingSelect').value} / ${d.getElementById('floorSelect').value} / ${selectedZone.join('、')}`
+                    : '尚未选择房间或片区';
+                divisionSave.disabled = selectedZone.length === 0;
+                divisionSave.classList.toggle('opacity-50', selectedZone.length === 0);
+                divisionSave.classList.toggle('cursor-not-allowed', selectedZone.length === 0);
+            };
+            const closeDivision = () => {
+                divisionModal.classList.add('hidden');
+                divisionModal.classList.remove('flex');
+            };
+            ['closeGis', 'cancelGis'].forEach(id => d.getElementById(id).onclick = closeDivision);
+            divisionSave.onclick = () => {
+                if (!selectedZone.length || !divisionAction) return;
+                const building = d.getElementById('buildingSelect').value;
+                const floor = d.getElementById('floorSelect').value;
+                const divisionValue = `${building} / ${floor} / ${selectedZone.join('、')}`;
+                if (divisionAction.id === 'openAreaDivision') {
+                    d.getElementById('areaDivisionSelect').value = divisionValue;
+                    d.getElementById('areaDivisionSelect').dispatchEvent(new Event('change', { bubbles: true }));
+                    d.getElementById('areaDivisionText').textContent = divisionValue;
+                    divisionAction.classList.add('border-primary', 'text-primary', 'bg-blue-50');
+                } else {
+                    divisionAction.textContent = '已划分';
+                    divisionAction.title = divisionValue;
+                    divisionAction.classList.add('text-green-600');
+                }
+                closeDivision();
+            };
+
+            tableBody.addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action) return;
+                const actionName = action.textContent.trim();
+                const row = action.closest('tr');
+
+                if (actionName === '区域划分' || actionName === '已划分' || actionName.startsWith('已划分：')) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    divisionAction = action;
+                    selectedZone = [];
+                    resetZones();
+                    d.getElementById('gisSubtitle').textContent = `当前三级区域：${cellText(row, 1)}`;
+                    divisionState.textContent = '尚未选择房间或片区';
+                    divisionSave.textContent = '确认划分';
+                    divisionSave.disabled = true;
+                    divisionSave.classList.add('opacity-50', 'cursor-not-allowed');
+                    divisionModal.classList.remove('hidden');
+                    divisionModal.classList.add('flex');
+                    return;
+                }
+
+                if (actionName === '新增作业区域') {
+                    pendingParent = row;
+                    editingAreaRow = null;
+                    action.textContent = '新增下级';
+                    action.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+                    action.textContent = '新增作业区域';
+                    d.getElementById('areaDrawerTitle').textContent = '新增作业区域';
+                    d.getElementById('areaParent').value = cellText(row, 1);
+                    return;
+                }
+
+                if (actionName === '编辑') {
+                    pendingParent = null;
+                    editingAreaRow = row;
+                    const level = cellText(row, 2);
+                    setTimeout(() => {
+                        const cameraField = d.getElementById('childCameraField');
+                        if (cameraField) cameraField.classList.add('hidden');
+                    });
+                }
+            }, true);
+
+            const drawerFields = drawer.querySelector('.flex-1.overflow-y-auto');
+            const divisionField = d.createElement('div');
+            divisionField.id = 'areaDivisionField';
+            divisionField.className = 'hidden';
+            divisionField.innerHTML = `<label class="text-sm text-textSecondary block mb-2">区域划分 <span style="color:#ef2f4f">*</span></label>
+                <button id="openAreaDivision" type="button" class="w-full border border-borderLine radius-sm px-3 py-3 flex items-center gap-3 text-left hover:border-primary transition-colors">
+                    <i class="fa fa-map-o text-primary"></i>
+                    <span id="areaDivisionText" class="flex-1 text-textLight">请选择作业区域划分</span>
+                    <i class="fa fa-angle-right text-textLight"></i>
+                </button>
+                <input id="areaDivisionSelect" type="hidden" value="">`;
+            drawerFields.appendChild(divisionField);
+
+            d.getElementById('openAreaDivision').onclick = () => {
+                divisionAction = d.getElementById('openAreaDivision');
+                const savedDivision = d.getElementById('areaDivisionSelect').value.split(' / ');
+                selectedZone = savedDivision[2] ? savedDivision[2].split('、') : [];
+                d.getElementById('buildingSelect').value = drawer.dataset.building || savedDivision[0] || '';
+                d.getElementById('floorSelect').value = drawer.dataset.floor || savedDivision[1] || '';
+                resetZones();
+                divisionMap.querySelectorAll('.zone-cell').forEach(zone => {
+                    if (selectedZone.includes(zone.dataset.zone)) zone.classList.add('border-primary', 'bg-blue-50', 'text-primary');
+                });
+                d.getElementById('gisSubtitle').textContent = `作业区域：${d.getElementById('areaName').value.trim() || '待填写'}`;
+                divisionState.textContent = selectedZone.length ? '已选择：' + d.getElementById('areaDivisionSelect').value : '尚未选择房间或片区';
+                divisionSave.textContent = '确认划分';
+                divisionSave.disabled = !selectedZone.length;
+                divisionSave.classList.toggle('opacity-50', !selectedZone.length);
+                divisionSave.classList.toggle('cursor-not-allowed', !selectedZone.length);
+                divisionModal.classList.remove('hidden');
+                divisionModal.classList.add('flex');
+            };
+
+            tableBody.addEventListener('click', event => {
+                const action = event.target.closest('span.cursor-pointer');
+                if (!action) return;
+                if (action.textContent.trim() === '新增作业区域') {
+                    divisionField.classList.remove('hidden');
+                    d.getElementById('areaDivisionSelect').value = '';
+                    d.getElementById('areaDivisionText').textContent = '请选择作业区域划分';
+                    d.getElementById('openAreaDivision').classList.remove('border-primary', 'text-primary', 'bg-blue-50');
+                } else if (action.textContent.trim() === '编辑') {
+                    divisionField.classList.remove('hidden');
+                    const value = action.closest('tr').dataset.areaDivision || '';
+                    d.getElementById('areaDivisionSelect').value = value;
+                    d.getElementById('areaDivisionText').textContent = value || '请选择作业区域划分';
+                    d.getElementById('openAreaDivision').classList.toggle('border-primary', !!value);
+                    d.getElementById('openAreaDivision').classList.toggle('text-primary', !!value);
+                    d.getElementById('openAreaDivision').classList.toggle('bg-blue-50', !!value);
+                }
+            });
+
+            saveButton.addEventListener('click', () => {
+                if (!divisionField.classList.contains('hidden')) {
+                    drawer.dataset.areaDivision = d.getElementById('areaDivisionSelect').value;
+                }
+            });
+
+            const collapsedAreas = new Set();
+            const normalizeActions = () => {
+                const rows = [...tableBody.rows];
+                rows.forEach(areaRow => {
+                    const level = cellText(areaRow, 2);
+                    const serial = cellText(areaRow, 0);
+                    if (level === '一级') areaRow.lastElementChild.innerHTML = '';
+                    if (level === '二级') areaRow.lastElementChild.innerHTML = actionHtml('二级');
+                    if (level === '三级') areaRow.lastElementChild.innerHTML = actionHtml('三级');
+                    if (level === '一级' || level === '二级') {
+                        const cell = areaRow.children[1];
+                        if (!cell.querySelector('.area-toggle')) {
+                            const button = d.createElement('button');
+                            button.type = 'button';
+                            button.className = 'area-toggle';
+                            button.setAttribute('aria-label', `展开或收起${cell.textContent.trim()}`);
+                            cell.prepend(button);
+                        }
+                        const button = cell.querySelector('.area-toggle');
+                        button.textContent = collapsedAreas.has(serial) ? '›' : '⌄';
+                        button.setAttribute('aria-expanded', String(!collapsedAreas.has(serial)));
+                        const leaves = rows.filter(candidate => cellText(candidate, 2) === '三级' && cellText(candidate, 0).startsWith(serial + '.'));
+                        const devices = leaves.flatMap(leaf => rowDevices.get(leaf) || []);
+                        rowDevices.set(areaRow, devices);
+                        areaRow.children[6].innerHTML = collapsedAreas.has(serial)
+                            ? (devices.length ? `<button class="camera-count text-primary hover:underline whitespace-nowrap" type="button"><i class="fa fa-video-camera mr-1"></i>${devices.length} 台</button>` : '<span class="text-textLight">0 台</span>')
+                            : '—';
+                    }
+                    const ancestors = serial.split('.').slice(0, -1).map((_, index, parts) => parts.slice(0, index + 1).join('.'));
+                    areaRow.hidden = ancestors.some(parent => collapsedAreas.has(parent));
+                });
+            };
+            tableBody.addEventListener('click', event => {
+                const button = event.target.closest('.area-toggle');
+                if (!button) return;
+                const serial = cellText(button.closest('tr'), 0);
+                if (collapsedAreas.has(serial)) collapsedAreas.delete(serial); else collapsedAreas.add(serial);
+                normalizeActions();
+            });
+            normalizeActions();
+            new MutationObserver(normalizeActions).observe(tableBody, { childList: true });
+        })();
+    </script>
+    <script src="区域配置-表单规则.js"></script>
+    <script src="责任区域数据.js"></script>
+    <script src="区域配置-责任归属.js?v=20261104-owner-label"></script>
+    <script src="区域配置-列表存储.js?v=20261102"></script>
+    <script src="navigation.js?v=20261102-responsibility"></script>
+
+</body>
+
+</html>

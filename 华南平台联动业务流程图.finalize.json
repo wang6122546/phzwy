@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "sequence",
+  "quality": "showcase",
+  "startedAt": "2026-10-26T10:47:08.084Z",
+  "specification": {
+    "path": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.sequence.json",
+    "sha256": "57bd77564307af6a026afdfc626f2f3cc6551818088bc1bdc8308d414b22e961",
+    "bytes": 4631
+  },
+  "artifact": {
+    "path": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+    "sha256": "97444a1a479619f60d25a4f7b1fb95b1ebbfbbd6f45edccc7b313ce18f08b2d1",
+    "bytes": 811111
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\65170\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "sequence",
+        "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.sequence.json",
+        "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "57bd77564307af6a026afdfc626f2f3cc6551818088bc1bdc8308d414b22e961",
+          "bytes": 4631
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 572,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\65170\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "sequence",
+        "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.sequence.json",
+        "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "28146c3f-1556-40b4-b27c-cb0ab0c088b6",
+        "ok": true,
+        "command": "deliver",
+        "type": "sequence",
+        "input": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.sequence.json",
+        "output": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+        "specification": {
+          "sha256": "57bd77564307af6a026afdfc626f2f3cc6551818088bc1bdc8308d414b22e961",
+          "bytes": 4631
+        },
+        "artifact": {
+          "sha256": "97444a1a479619f60d25a4f7b1fb95b1ebbfbbd6f45edccc7b313ce18f08b2d1",
+          "bytes": 811111
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 243,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\65170\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "check",
+        "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+        "artifact": {
+          "sha256": "97444a1a479619f60d25a4f7b1fb95b1ebbfbbd6f45edccc7b313ce18f08b2d1",
+          "bytes": 811111
+        },
+        "checks": [
+          {
+            "name": "single_svg",
+            "ok": true,
+            "details": [
+              "found 1 <svg> block(s)"
+            ]
+          },
+          {
+            "name": "finite_svg",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "orthogonal_arrows",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "label_route_clearance",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_crossings",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_corridors",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "container_border_runs",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "route_rhythm",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "legend_clearance",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "metrics": {
+            "properCrossings": 0,
+            "resolvedCrossovers": 0,
+            "ambiguousCorridors": 0,
+            "arrowheadCollisions": 0,
+            "containerBorderRuns": 0,
+            "labelRouteClearanceIssues": 0,
+            "labelCanvasOverflowIssues": 0,
+            "minLabelRouteClearance": 81.7,
+            "desktopReadabilityIssues": 0,
+            "viewportHeightIssues": 0,
+            "minProjectedNodeTextPx": 7,
+            "maxBends": 0,
+            "routesOverSuggestedBends": 0,
+            "maxStretch": 1,
+            "routesOverSuggestedStretch": 0,
+            "minSegmentPx": 154.5,
+            "minInteriorSegmentPx": null,
+            "shortSegmentCount": 0,
+            "shortEndpointSegmentCount": 0,
+            "shortInteriorSegmentCount": 0,
+            "microSegmentCount": 0
+          },
+          "suggestedLimits": {
+            "bendsPerRelationship": 2,
+            "stretch": 1.35,
+            "segmentPx": 16,
+            "microSegmentPx": 8
+          },
+          "routeReview": {
+            "crossings": [],
+            "detours": []
+          },
+          "leadingSpace": {
+            "measured": false,
+            "reviewSuggested": false
+          },
+          "sequenceColumnSpace": {
+            "measured": true,
+            "columnFit": "spread",
+            "participantCount": 3,
+            "occupiedRight": 520,
+            "viewBoxLeft": 0,
+            "canvasWidth": 560,
+            "emptyRightPx": 40,
+            "emptyRightRatio": 0.071,
+            "typicalParticipantWidth": 121,
+            "reviewSuggested": false
+          },
+          "desktopReadability": {
+            "budgetBasis": "legacy-930",
+            "readerContract": "declared-wide-v1",
+            "availableDiagramWidth": 930,
+            "actualBudgetPx": 930,
+            "limit": "legacy",
+            "requestedTargetPx": null,
+            "requestedTargetMet": null,
+            "hardFloorPx": 6,
+            "hardFloorMet": true,
+            "minimumOwner": {
+              "kind": "edge",
+              "id": "signal-arrives",
+              "from": "signal",
+              "to": "local"
+            },
+            "minimumSourceTextPx": 7,
+            "minimumProjectedTextPx": 7,
+            "semanticTextCount": 18
+          },
+          "issues": []
+        },
+        "provenance": "current",
+        "deliveryReceiptId": "28146c3f-1556-40b4-b27c-cb0ab0c088b6"
+      }
+    },
+    "browser-check": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": 69,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\65170\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "browser-check",
+        "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+        "--json",
+        "--require-provenance"
+      ],
+      "execution": "in-process",
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "browser-check",
+        "evidenceKind": "automated-browser",
+        "status": "fail",
+        "visualReview": "not-requested",
+        "provenance": "current",
+        "deliveryReceiptId": "28146c3f-1556-40b4-b27c-cb0ab0c088b6",
+        "artifact": {
+          "path": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html",
+          "sha256": "97444a1a479619f60d25a4f7b1fb95b1ebbfbbd6f45edccc7b313ce18f08b2d1",
+          "bytes": 811111
+        },
+        "state": {
+          "detail": "read",
+          "motion": "still"
+        },
+        "chrome": {
+          "status": "available",
+          "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+        },
+        "diagnostics": [
+          {
+            "code": "viewer/browser-check-runtime",
+            "severity": "error",
+            "message": "browser-check could not complete its Chrome inspection.",
+            "subject": {
+              "artifact": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html"
+            },
+            "evidence": {
+              "reason": "Temporary directory ancestor identity is unavailable: C:\\Users\\65170\\AppData\\Local\\Temp"
+            },
+            "supportedFixes": [
+              "resolve the reported Chrome inspection error, then rerun browser-check"
+            ]
+          }
+        ],
+        "containment": {
+          "status": "fail",
+          "policy": "fit-or-reader-declared-readable-vertical-scroll",
+          "viewports": []
+        },
+        "themeStates": {
+          "status": "fail",
+          "viewports": []
+        },
+        "readability": {
+          "status": "fail",
+          "minimumProjectedNodeTextPx": 6,
+          "viewports": []
+        },
+        "viewerChrome": {
+          "status": "fail",
+          "viewports": []
+        },
+        "captures": {
+          "status": "not-requested",
+          "screenshots": [],
+          "contactSheet": null
+        },
+        "sidecars": {
+          "receipt": "华南平台联动业务流程图.browser-check.json",
+          "files": []
+        },
+        "error": "Temporary directory ancestor identity is unavailable: C:\\Users\\65170\\AppData\\Local\\Temp"
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/browser-check-runtime",
+      "severity": "error",
+      "message": "browser-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.html"
+      },
+      "evidence": {
+        "reason": "Temporary directory ancestor identity is unavailable: C:\\Users\\65170\\AppData\\Local\\Temp"
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun browser-check"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.finalize.json",
+    "summaryReceipt": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.finalize-summary.json",
+    "browserCheckReceipt": "D:\\天泽智联\\深圳中外运物流有限公司科技兴安暨智慧园区四期项目\\github生产静态页面\\waiyunpinghu\\华南平台联动业务流程图.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "browser-check",
+  "finishedAt": "2026-10-26T10:47:09.648Z",
+  "durationMs": 1563,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-unavailable"
+  }
+}

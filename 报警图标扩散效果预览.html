@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报警图标扩散效果预览 · 监测一张图</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:#071321;color:#dce8f7;font:400 14px 'Microsoft YaHei',sans-serif;overflow:hidden}
+  .screen{height:100dvh;display:flex;flex-direction:column}
+  .mast{height:64px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border:1px solid rgba(72,119,187,.3);border-radius:12px;margin:12px 12px 0;background:linear-gradient(100deg,rgba(14,36,73,.96),rgba(7,23,50,.9))}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand h1{font-size:16px;letter-spacing:2px;color:#dce8f7;font-weight:400}
+  .brand small{display:block;color:#8190a5;font-size:12px;margin-top:4px}
+  .legend-chip{font-size:12px;color:#99c7ff}
+  .map{position:relative;flex:1;margin:12px;min-height:0;border:1px solid rgba(82,132,201,.28);border-radius:12px;overflow:hidden;background:#071321}
+  .map:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,14,34,.45),transparent 28%,transparent 72%,rgba(3,14,34,.48)),linear-gradient(180deg,rgba(3,14,34,.42),transparent 24%,transparent 76%,rgba(3,14,34,.68))}
+  .map img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.76) saturate(.82);pointer-events:none}
+
+  /* ===== 建筑 pin 基础样式（与 监测一张图.css 一致） ===== */
+  .building-pin{position:absolute;transform:translate(-50%,-100%);z-index:3;padding:0;border:0;background:none;display:flex;align-items:center;flex-direction:column;gap:9px;overflow:visible;box-shadow:none;min-width:100px;border-radius:6px}
+  .building-pin span{display:flex;align-items:center;gap:8px;padding:9px 18px;background:linear-gradient(100deg,rgba(8,121,255,.95),rgba(25,78,155,.93));border:1px solid rgba(137,195,255,.8);border-radius:6px;color:white;box-shadow:0 5px 16px rgba(3,20,47,.4);font-size:14px;white-space:nowrap}
+  .building-pin small{font-size:12px;font-weight:400;color:#ffe2e7;padding-left:8px;border-left:1px solid rgba(255,255,255,.3)}
+  .building-pin i{display:grid;place-items:center;width:28px;height:28px;border:2px solid #abf7cf;background:#12a36a;color:white;border-radius:50%;font-size:14px;box-shadow:0 0 0 5px rgba(18,163,106,.2),0 3px 12px #07162f88}
+  .building-pin.has-alarm span{border-color:rgba(255,133,153,.8)}
+
+  /* ===== 有待处理报警：图标向外扩散的双层径向光环（Dribbble 风格） ===== */
+  .building-pin.has-alarm i{position:relative;background:radial-gradient(circle at 34% 30%,#ff8296,#ef2f4f 55%,#9c142c);border-color:#ffd4dd;box-shadow:0 0 0 5px rgba(239,47,79,.16),0 0 26px rgba(255,70,96,.75),inset 0 0 10px rgba(255,255,255,.35);animation:alarmCore 1.9s cubic-bezier(.22,1,.36,1) infinite}
+  .building-pin.has-alarm i::before,.building-pin.has-alarm i::after{content:'';position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,112,130,.9) 0%,rgba(255,64,90,.34) 32%,rgba(255,64,90,0) 66%);will-change:transform,opacity}
+  .building-pin.has-alarm i::before{animation:alarmPulse 2.3s cubic-bezier(.22,1,.36,1) infinite}
+  .building-pin.has-alarm i::after{animation:alarmPulse 2.3s cubic-bezier(.22,1,.36,1) 1.15s infinite}
+  @keyframes alarmPulse{0%{transform:scale(.4);opacity:0}16%{opacity:.95}58%{opacity:.5}100%{transform:scale(3.15);opacity:0}}
+  @keyframes alarmCore{0%,100%{box-shadow:0 0 0 5px rgba(239,47,79,.16),0 0 20px rgba(255,70,96,.55),inset 0 0 8px rgba(255,255,255,.3)}50%{box-shadow:0 0 0 9px rgba(239,47,79,.08),0 0 34px rgba(255,84,112,.9),inset 0 0 14px rgba(255,255,255,.5)}}
+  @media (prefers-reduced-motion: reduce){.building-pin.has-alarm i,.building-pin.has-alarm i::before,.building-pin.has-alarm i::after{animation:none}}
+
+  .hint{position:absolute;z-index:4;left:14px;bottom:12px;font-size:12px;color:#8190a5}
+</style>
+</head>
+<body>
+<div class="screen">
+  <header class="mast">
+    <div class="brand">
+      <h1>报警图标扩散效果预览 · 监测一张图</h1>
+      <small>1号仓库 / 办公楼 / 3号仓库 有待处理报警 → 图标双层光环扩散</small>
+    </div>
+    <span class="legend-chip">待处理报警建筑</span>
+  </header>
+
+  <div class="map">
+    <img src="assets/monitor/park.jpg" alt="深圳中外运物流园区鸟瞰底图">
+
+    <!-- 2号仓库：无待处理报警，绿色常态（对照） -->
+    <button class="building-pin" style="left:43%;top:38%">
+      <span>2号仓库</span>
+      <i>●</i>
+    </button>
+
+    <!-- 1号仓库：待处理报警 → 扩散 -->
+    <button class="building-pin has-alarm" style="left:24%;top:55%">
+      <span>1号仓库<small>待处理报警：2起</small></span>
+      <i>●</i>
+    </button>
+
+    <!-- 办公楼：待处理报警 → 扩散 -->
+    <button class="building-pin has-alarm" style="left:40%;top:80%">
+      <span>办公楼<small>待处理报警：1起</small></span>
+      <i>●</i>
+    </button>
+
+    <!-- 3号仓库：待处理报警 → 扩散 -->
+    <button class="building-pin has-alarm" style="left:60%;top:25%">
+      <span>3号仓库<small>待处理报警：3起</small></span>
+      <i>●</i>
+    </button>
+
+    <div class="hint">红色圆点为待处理报警建筑，图标持续向外扩散双层径向光环（Dribbble 风格缓动曲线）</div>
+  </div>
+</div>
+</body>
+</html>

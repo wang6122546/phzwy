@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>“三违”无视频不作业智慧管控平台 - 查处管理</title>
+    <script src="assets/vendor/tailwindcss.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0879ff',
+                        sidebarDark: '#0F2038',
+                        pageBg: '#F7F8FA',
+                        cardBg: '#ffffff',
+                        borderLine: '#E5E6EB',
+                        textMain: '#1D2129',
+                        textSecondary: '#6E7681',
+                        textLight: '#86909C',
+                        statusProcess: '#FF7D00',
+                        statusFinish: '#00B42A',
+                        levelA: '#F53F3F',
+                        levelB: '#FF7D00',
+                        levelC: '#FFC53D',
+                        levelD: '#00B42A',
+                        levelOther: '#9E88FF',
+                    },
+                    fontFamily: {
+                        system: ['PingFang SC', 'Microsoft YaHei', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar { display: none; }
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .menu-active { @apply bg-primary/20 text-white border-l-[3px] border-primary; }
+            .tree-item-hover { @apply hover:bg-gray-100 rounded cursor-pointer; }
+            .tree-active { @apply text-primary font-medium; }
+        }
+        body { overflow: hidden; }
+        .drawer-mask { transition: opacity .2s ease; }
+        .drawer-panel { transition: transform .25s ease; }
+        .drawer-closed { pointer-events: none; }
+        .drawer-closed .drawer-mask { opacity: 0; pointer-events: none; }
+        .drawer-closed .drawer-panel { transform: translateX(100%); }
+    </style>
+<script src="报警来源规则.js?v=20261104-fire-status"></script><script src="责任区域级联.js?v=20261104-all"></script></head>
+<body class="font-system bg-pageBg text-textMain h-screen flex">
+    <!-- 左侧主导航菜单 -->
+    <aside class="w-[210px] bg-sidebarDark flex flex-col flex-shrink-0 text-slate-300">
+        <!-- Logo标题 -->
+        <div class="h-[64px] flex items-center px-4 border-b border-slate-700/50 gap-2">
+            <div class="w-8 h-8 rounded bg-white flex items-center justify-center">
+                <i class="fa fa-cube text-primary text-lg"></i>
+            </div>
+            <div class="leading-tight">
+                <div class="text-white text-sm font-medium">视频AI识别自进化能力平台</div>
+                <div class="text-[10px] text-slate-400">隐患违章管控系统</div>
+            </div>
+        </div>
+        <!-- 侧边菜单 -->
+        <nav class="flex-1 py-3 overflow-y-auto scrollbar-hide text-sm">
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-home w-5 text-center"></i>
+                <span>首页</span>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-video-camera w-5 text-center"></i>
+                <span>实时监控</span>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-history w-5 text-center"></i>
+                <span>视频管理</span>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-bolt w-5 text-center"></i>
+                <span>AI隐患管理</span>
+            </div>
+            <div class="menu-active flex items-center gap-3 px-4 py-2.5 cursor-pointer">
+                <i class="fa fa-exclamation-triangle w-5 text-center"></i>
+                <span>隐患违章管理</span>
+            </div>
+            <div class="pl-8 flex flex-col gap-1 py-1">
+                <div class="flex items-center gap-3 px-4 py-2 hover:bg-slate-700/30 cursor-pointer">
+                    <span>隐患查处台账</span>
+                </div>
+                <div class="menu-active flex items-center gap-3 px-4 py-2 cursor-pointer">
+                    <span>查处管理</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-list-alt w-5 text-center"></i>
+                <span>考核管理</span>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-sitemap w-5 text-center"></i>
+                <span>组织架构</span>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-camera w-5 text-center"></i>
+                <span>设备管理</span>
+            </div>
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/30 cursor-pointer">
+                <i class="fa fa-cog w-5 text-center"></i>
+                <span>系统设置</span>
+            </div>
+        </nav>
+        <div class="h-10 border-t border-slate-700/50 flex items-center justify-center text-xs text-slate-400 cursor-pointer hover:text-white">
+            <i class="fa fa-angle-double-left mr-1"></i>收起菜单
+        </div>
+    </aside>
+
+    <!-- 主体区域 -->
+    <div class="flex flex-1 overflow-hidden">
+        <!-- 右侧主内容区域 -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- 顶部栏 -->
+            <header class="h-[60px] bg-white border-b border-borderLine flex items-center justify-between px-6 flex-shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa fa-bars cursor-pointer"></i>
+                    <span class="text-base font-medium">查处管理</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-2 cursor-pointer">
+                        <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center">
+                            <i class="fa fa-user text-textSecondary"></i>
+                        </div>
+                        <span class="text-sm">张安全 <span class="text-textLight text-xs">安全环保部·安全科</span></span>
+                    </div>
+                </div>
+            </header>
+
+            <div id="caseApp" class="flex-1 overflow-y-auto p-6"></div>
+        </main>
+    </div>
+    <script src="基础配置规则.js"></script><script src="报警演示数据.js"></script>
+    <script src="今日报警演示数据.js?v=20261104-fire-status"></script>
+<script src="统计明细跳转.js"></script>
+<script src="处置状态演示数据.js"></script>
+    <script src="assets/vendor/vue.global.prod.js"></script>
+    <script src="assets/vendor/naive-ui.prod.js"></script>
+    <link rel="stylesheet" href="查处管理.css?v=20261104-processing-card">
+    <script src="责任区域数据.js"></script>
+    <script src="消防事件列表.js?v=20261105-alarm-id"></script><script src="查处详情.js?v=20261104-fire-status"></script>
+    <script src="查处管理.js?v=20261104-processing-card"></script>
+    <script src="navigation.js?v=20261102-responsibility"></script>
+<script src="监测一张图返回.js"></script><script src="原型标注数据.js"></script></body></html>

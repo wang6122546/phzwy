@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI报警复核 | AI智能报警处置平台</title>
+    <script src="assets/vendor/tailwindcss.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        danger: '#F53F3F',
+                        success: '#00B42A',
+                        warning: '#FF7D00',
+                        darkNav: '#1D2939',
+                        grayBg: '#F9FAFB',
+                        grayBorder: '#E5E7EB',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            }
+            .btn-hover {
+                transition: all 0.2s ease;
+            }
+            .btn-hover:hover {
+                opacity: 0.9;
+            }
+        }
+        body {
+            font-family: Inter, system-ui, sans-serif;
+        }
+    </style>
+<style>.review-form-scroll{scrollbar-width:none;-ms-overflow-style:none}.review-form-scroll::-webkit-scrollbar{display:none}</style>
+<script src="报警来源规则.js"></script></head>
+<body class="bg-grayBg text-gray-800 h-screen flex flex-col overflow-hidden">
+    <!-- 全局左侧深色主导航（由 navigation.js?v=20261102-responsibility"flex-1 flex flex-col overflow-hidden">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white border-b border-grayBorder px-6 py-3 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+            <a href="AI隐患核查.html" aria-label="返回AI报警中心" class="text-lg" style="display:inline-flex;align-items:center;gap:8px;color:#172033;text-decoration:none;font-weight:400"><i class="fa fa-angle-left" aria-hidden="true"></i><span>AI报警复核</span></a>
+        </div>
+        <div class="flex items-center gap-5">
+            <!-- <span class="text-sm text-gray-500"><i class="fa fa-wifi mr-1"></i>终端本地网络</span> -->
+            <div class="flex items-center gap-2">
+                <i class="fa fa-bell-o text-gray-600 text-lg"></i>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm">张</div>
+                    <span class="text-sm">张安全</span>
+                    <span class="text-xs text-gray-400">安全环保部·安全科</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="flex-1 overflow-auto p-6">
+<div class="bg-white rounded-lg card-shadow mb-5" style="padding:10px 16px;font-size:12px;line-height:24px;display:flex;flex-wrap:wrap;align-items:center;column-gap:16px;row-gap:0"><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">报警ID：</span><span data-alarm-field="id"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">违规事件类型：</span><span data-alarm-field="type"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">报警时间：</span><span data-alarm-field="time"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">设备名称：</span><span data-alarm-field="device"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">置信度：</span><span data-alarm-field="confidence"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">报警等级：</span><span data-alarm-field="level"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">责任区域：</span><span data-alarm-field="area"></span></div><div style="white-space:nowrap;flex-shrink:0"><span class="text-gray-500">责任人：</span><span data-alarm-field="owner"></span></div><div style="white-space:nowrap;flex-shrink:0"><span style="color:#8190a5">复核超期：</span><span data-alarm-field="overdue"></span></div></div>
+        <!-- 主体布局：去除左侧面板，调整为【视频区域 | 右侧操作面板】 -->
+        <div class="grid grid-cols-[minmax(0,1fr)_360px] gap-5 h-[calc(100vh-260px)]">
+            <!-- 中间视频区域（加宽，占用原左侧+中间宽度） -->
+            <div class="bg-white rounded-lg p-4 card-shadow flex flex-col h-full min-h-0">
+                
+                <div class="rounded flex-1 min-h-[360px] relative mb-3" style="overflow:hidden;background:#172033">
+                    <img src="sample-normal-scene.jpg" alt="工业厂房作业区域全景" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
+ <button type="button" aria-label="播放视频" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border:0;border-radius:50%;background:rgba(255,255,255,.85);color:#172033;display:grid;place-items:center;cursor:pointer"><i class="fa fa-play" aria-hidden="true" style="font-size:24px;margin-left:4px"></i></button>
+ <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));display:flex;align-items:center;gap:12px;color:white;font-size:12px">
+ <span id="sceneCurrentTime">00:00</span><input id="sceneProgress" type="range" min="0" max="15" value="0" step="1" aria-label="播放进度" style="flex:1;min-width:0;height:4px;accent-color:#0879ff;cursor:pointer"><span>00:15</span>
+ </div>
+                </div>
+            </div>
+
+            <!-- 右侧复核操作面板 -->
+            <div class="bg-white rounded-lg p-4 card-shadow flex flex-col overflow-hidden h-full min-h-0">
+<div class="review-form-scroll flex-1 min-h-0 overflow-y-auto" style="padding-right:2px">
+<div class="mb-5"><h3 class="mb-3 text-sm">违规照片</h3><div style="position:relative;overflow:hidden;border-radius:4px"><img id="alarmPhoto" class="w-full h-48 object-cover rounded" alt="违规照片"><svg id="alarmDetectionOverlay" viewBox="0 0 511 400" preserveAspectRatio="xMidYMid slice" aria-label="违规目标检测框" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><rect x="62" y="112" width="154" height="222" fill="none" stroke="#ef2f4f" stroke-width="3"/><rect id="detectionLabelBg" x="62" y="86" width="235" height="26" rx="2" fill="#ef2f4f"/><text id="detectionEventLabel" x="68" y="104" fill="white" font-size="16" font-family="Microsoft YaHei,sans-serif"></text></svg></div></div>
+                <div class="mb-4">
+                    <label for="reviewEventJudgment" class="block text-sm mb-2" style="font-weight:400">事件判定</label>
+                    <select id="reviewEventJudgment" class="w-full border border-grayBorder rounded px-3 py-2 text-sm" style="height:36px;border-radius:8px;font-weight:400"><option value="">请选择</option><option>违规或异常</option><option>穿戴不规范</option><option>巡检和维保</option><option>测试告警</option><option>画面异常</option><option>算法误报</option></select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">复核结果 <span class="text-danger">*</span></label>
+                    <div class="grid grid-cols-3 gap-3" id="reviewResultChoices">
+<button type="button" data-review-result="误报" aria-pressed="false" class="border rounded py-2 flex items-center justify-center gap-2" style="font-weight:400;border-color:#d8e2ef;color:#24344d;background:#fff">误报</button>
+<button type="button" data-review-result="确认违规" aria-pressed="true" class="border rounded py-2 flex items-center justify-center gap-2" style="font-weight:400;border-color:#0879ff;color:#0879ff;background:#eef6ff">确认违规</button>
+<button type="button" data-review-result="计划内事件" aria-pressed="false" class="border rounded py-2 flex items-center justify-center gap-2" style="font-weight:400;border-color:#d8e2ef;color:#24344d;background:#fff">计划内事件</button>
+<button type="button" data-review-result="疑似" aria-pressed="false" class="border rounded py-2 flex items-center justify-center gap-2" style="font-weight:400;border-color:#d8e2ef;color:#24344d;background:#fff">疑似</button>
+</div>
+                </div>
+
+                <div id="misreportTypeField" class="mb-4 hidden"><label for="misreportType" class="block text-sm mb-2">误报类型 <span class="text-danger">*</span></label><select id="misreportType" disabled class="w-full border border-grayBorder rounded px-3 py-2 text-sm"><option value="">暂无已配置的误报类型</option></select></div>
+
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">违规事件类型 <span class="text-danger">*</span></label>
+                    <select id="reviewEventType" class="w-full border border-grayBorder rounded px-3 py-2 text-sm"><option>仓库人员未穿反光衣</option><option>货架区未佩戴安全帽</option><option>违规吸烟</option><option>车辆逆行</option><option>车辆违规反向停放</option><option>行人未走人行通道</option><option>消防通道堵塞</option><option>人员入侵</option><option>焰火报警</option><option>烟雾报警</option><option>未佩戴厨帽</option><option>未佩戴口罩</option><option>翻越围栏</option><option>机动车违停</option><option>未佩戴安全带</option><option>缺失灭火器</option><option>未佩戴护目镜</option><option>积水识别</option><option>车辆车门及尾板未关闭</option><option>作业车辆未按照朝站台侧开门</option><option>货物高于托架，叉车存在进行倒车行驶</option><option>理货员等违规站位</option></select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="reviewAlarmLevel" class="block text-sm font-medium mb-2">报警等级</label>
+                    <input id="reviewAlarmLevel" type="text" readonly aria-readonly="true" class="w-full border border-grayBorder rounded px-3 py-2 text-sm bg-gray-50 text-gray-700" />
+                </div>
+
+                
+
+                
+
+                
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">备注说明 <span class="text-gray-400 text-xs">(选填)</span></label>
+                    <textarea class="w-full border border-grayBorder rounded p-2 text-sm h-20 resize-none" placeholder="请输入备注说明..." maxlength="200"></textarea>
+                    <div class="text-right text-xs text-gray-400">0/200</div>
+                </div>
+
+                </div>
+<div class="grid grid-cols-2 gap-3 flex-shrink-0" style="padding-top:16px;background:#fff">
+                    <button class="border border-grayBorder rounded py-2 text-sm btn-hover">取消</button>
+                    <button class="bg-primary text-white rounded py-2 text-sm btn-hover">提交复核结果</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    </div>
+
+    <script src="navigation.js?v=20261102-responsibility"></script>
+<script>
+function styleReviewResult(button, selected) {
+ const tone = {'误报':['#d98600','#fff3d9'],'确认违规':['#ef2f4f','#fff4f5'],'计划内事件':['#0879ff','#eef6ff'],'疑似':['#d98600','#fff3d9']}[button.dataset.reviewResult];
+ button.style.borderColor = selected ? tone[0] : '#d8e2ef';
+ button.style.color = selected ? '#fff' : '#24344d';
+ button.style.background = selected ? tone[0] : '#fff';
+ button.style.boxShadow = selected ? '0 0 0 2px '+tone[1] : 'none';
+}
+document.querySelectorAll('[data-review-result]').forEach(button => styleReviewResult(button,button.getAttribute('aria-pressed') === 'true'));
+function updateReviewFields(result) {
+ const isMisreport = result === '误报';
+ const isViolation = result === '确认违规';
+ document.getElementById('misreportTypeField').classList.toggle('hidden', !isMisreport);
+ document.getElementById('misreportType').required = isMisreport;
+ ['reviewEventType','reviewAlarmLevel'].forEach(id => {
+  const control = document.getElementById(id);
+  control.parentElement.classList.toggle('hidden', !isViolation);
+  control.disabled = !isViolation;
+  control.required = isViolation && id === 'reviewEventType';
+ });
+}
+document.querySelectorAll('[data-review-result]').forEach(button => {
+ button.addEventListener('click', () => {
+  document.querySelectorAll('[data-review-result]').forEach(item => {
+   const selected = item === button;
+   item.setAttribute('aria-pressed', String(selected));
+   styleReviewResult(item, selected);
+  });
+  updateReviewFields(button.dataset.reviewResult);
+ });
+});
+updateReviewFields(document.querySelector('[data-review-result][aria-pressed="true"]').dataset.reviewResult);
+</script>
+<script src="误报类型字典.js"></script><script src="误报类型联动.js"></script>
+<script src="基础配置规则.js"></script><script src="报警演示数据.js"></script><script src="今日报警演示数据.js"></script><script>
+(() => {
+ const id = new URLSearchParams(location.search).get('alarmId');
+ let extra = []; try { extra = JSON.parse(localStorage.getItem('global-alarm-center-v1'))?.extra || []; } catch {}
+ const record = [...extra, ...window.ALARM_DEMO_RECORDS].find(r => r.id === id) || window.ALARM_DEMO_RECORDS[0];
+ document.querySelectorAll('[data-alarm-field]').forEach(el => {
+ const key = el.dataset.alarmField;
+ el.textContent = record[key];
+ if(key === 'level') { const colors = {一级:['#ef2f4f','#fff4f5'],二级:['#d98600','#fff3d9'],三级:['#a67c00','#fffbe6'],四级:['#0879ff','#eef6ff']}[record.level]; el.style.cssText = 'font-size:12px;padding:2px 6px;border-radius:4px;color:'+colors[0]+';background:'+colors[1]; }
+ if(key === 'overdue' && record.overdue !== '否') el.style.color = '#ef2f4f';
+ });
+ document.getElementById('alarmPhoto').src = record.photo || 'sample-no-helmet.jpg';
+ const eventLabel = document.getElementById('detectionEventLabel');
+ function updateDetectionLabel(type) {
+  eventLabel.textContent = type;
+  document.getElementById('detectionLabelBg').setAttribute('width', Math.min(449, Math.max(110, type.length * 16 + 12)));
+ }
+ updateDetectionLabel(record.type);
+
+ document.getElementById('reviewEventJudgment').value = record.eventJudgment || '';
+ document.getElementById('reviewEventType').value = record.type;
+ const levelControl=document.getElementById('reviewAlarmLevel');
+ const levelRules=window.AlarmEventLevels;
+ levelControl.value=levelRules.level(record.type,record.level,record);
+ document.getElementById('reviewEventType').addEventListener('change',event=>{levelControl.value=levelRules.level(event.target.value,record.level,record);});
+
+})();
+</script>
+<script>document.getElementById('sceneProgress').addEventListener('input',event=>{document.getElementById('sceneCurrentTime').textContent='00:'+String(event.target.value).padStart(2,'0');});</script>
+<script>
+(() => {
+ if(new URLSearchParams(location.search).get('fromMap')==='1')return;
+ const submit=[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='提交复核结果');
+ const error=document.createElement('p');error.setAttribute('role','alert');error.style.color='#ef2f4f';submit.parentElement.before(error);
+ submit.onclick=()=>{
+  error.textContent='';
+  try{
+   const state=JSON.parse(localStorage.getItem('global-alarm-center-v1'))||{};
+   const id=new URLSearchParams(location.search).get('alarmId');
+   const base=[...(state.extra||[]),...window.ALARM_DEMO_RECORDS].find(r=>r.id===id)||(!id?window.ALARM_DEMO_RECORDS[0]:null);
+   if(!base)throw Error('报警不存在，请返回重新选择');
+   if(base.status==='已复核')throw Error('该报警已复核，请返回查看最新状态');
+   const result=document.querySelector('[data-review-result][aria-pressed="true"]')?.dataset.reviewResult;
+   const misreport=document.getElementById('misreportType');
+   if(result==='误报'&&!misreport.value)throw Error('请选择误报类型');
+   if(!['确认违规','误报','计划内事件','疑似'].includes(result))throw Error('请选择复核结果');
+   if(!confirm('确认提交本次复核结果？'))return;
+   const now=new Date();
+   const updated={...base,eventJudgment:document.getElementById('reviewEventJudgment').value,status:'已复核',result,type:result==='确认违规'?document.getElementById('reviewEventType').value:base.type,level:result==='确认违规'?document.getElementById('reviewAlarmLevel').value:base.level,reviewer:'张安全',reviewTime:now.toLocaleDateString('sv-SE')+' '+now.toTimeString().slice(0,8),remark:document.querySelector('textarea')?.value.trim()||'',misreportType:result==='误报'?misreport.selectedOptions[0].textContent:''};
+   localStorage.setItem('global-alarm-center-v1',JSON.stringify({...state,extra:[updated,...(state.extra||[]).filter(r=>r.id!==base.id)]}));
+   location.href='AI隐患核查.html';
+  }catch(e){error.textContent=e.message;}
+ };
+})();
+</script>
+<script src="超期规则联动.js"></script><script src="监测一张图返回.js"></script><script src="原型标注数据.js"></script></body>
+</html>

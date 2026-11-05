@@ -1,0 +1,192 @@
+[
+  {
+    "file": "AI智能报警处置平台需求规格说明书_V1.0_评审稿.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/AI%E6%99%BA%E8%83%BD%E6%8A%A5%E8%AD%A6%E5%A4%84%E7%BD%AE%E5%B9%B3%E5%8F%B0%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6_V1.0_%E8%AF%84%E5%AE%A1%E7%A8%BF.html",
+    "status": 200,
+    "title": "AI智能报警处置平台需求规格说明书 V1.0 评审稿",
+    "screenshot": "assets/prototype-captures/20261028-AI智能报警处置平台需求规格说明书_V1.0_评审稿.html.png",
+    "sha256": "e4a70471a36a910fef5dd71f78d845ce5aa2c283f6693c8d94c05cdf19de018f",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "AI识别的违章复核.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/AI%E8%AF%86%E5%88%AB%E7%9A%84%E8%BF%9D%E7%AB%A0%E5%A4%8D%E6%A0%B8.html",
+    "status": 200,
+    "title": "AI报警复核 | AI智能报警处置平台",
+    "screenshot": "assets/prototype-captures/20261028-AI识别的违章复核.html.png",
+    "sha256": "6c7663397e3c5a424dc14cffb732597e337e5f00ca527c3f5cd04902390c46c2",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "AI隐患核查.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/AI%E9%9A%90%E6%82%A3%E6%A0%B8%E6%9F%A5.html",
+    "status": 200,
+    "title": "\"三维\"无视频不作业智慧管控平台 - AI报警复核",
+    "screenshot": "assets/prototype-captures/20261028-AI隐患核查.html.png",
+    "sha256": "e563636d402f9252afa182720e8bcc003c715f9a70f6a373fc4482225beba723",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "index.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/index.html",
+    "status": 200,
+    "title": "\"三维\"无视频不作业智慧管控平台 - AI报警复核",
+    "screenshot": "assets/prototype-captures/20261028-index.html.png",
+    "sha256": "3595ee7a0d12a3670e53b315cfa33392052ad23367803e27ff7afebefadffa44",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "区域配置.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E5%8C%BA%E5%9F%9F%E9%85%8D%E7%BD%AE.html",
+    "status": 200,
+    "title": "区域配置 - AI智能报警处置平台",
+    "screenshot": "assets/prototype-captures/20261028-区域配置.html.png",
+    "sha256": "2dd7573d689b49e22bcf90a9b25d669be3a82a021b7244aff942057f0a14d224",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "华南平台联动业务流程图.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E5%8D%8E%E5%8D%97%E5%B9%B3%E5%8F%B0%E8%81%94%E5%8A%A8%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%9B%BE.html",
+    "status": 200,
+    "title": "华南平台联动业务流程图",
+    "screenshot": "assets/prototype-captures/20261028-华南平台联动业务流程图.html.png",
+    "sha256": "aa9574814996784fc7a25e451ac6f2c4d447d903e1d6cc7160611e10f648537d",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "基础配置.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE.html",
+    "status": 200,
+    "title": "基础配置",
+    "screenshot": "assets/prototype-captures/20261028-基础配置.html.png",
+    "sha256": "64fd6eee39dc23b0c23275f23f871fffa94647b5f80ef3bfa6ea0061da181e03",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "安全管理报告.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E6%8A%A5%E5%91%8A.html",
+    "status": 200,
+    "title": "安全管理报告",
+    "screenshot": "assets/prototype-captures/20261028-安全管理报告.html.png",
+    "sha256": "cfbdd6a119d932a2f48fd5f0a727fcbf8d14e60f0d4ce61fa1b414c6061320b5",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "报警图标扩散效果预览.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E6%8A%A5%E8%AD%A6%E5%9B%BE%E6%A0%87%E6%89%A9%E6%95%A3%E6%95%88%E6%9E%9C%E9%A2%84%E8%A7%88.html",
+    "status": 200,
+    "title": "报警图标扩散效果预览 · 监测一张图",
+    "screenshot": "assets/prototype-captures/20261028-报警图标扩散效果预览.html.png",
+    "sha256": "e93faedf2a7592672beba578930ec56b4674ca37d7bf056ee05d17a21b04a260",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "报警处置移动端.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E6%8A%A5%E8%AD%A6%E5%A4%84%E7%BD%AE%E7%A7%BB%E5%8A%A8%E7%AB%AF.html",
+    "status": 200,
+    "title": "报警处置 · 移动端",
+    "screenshot": "assets/prototype-captures/20261028-报警处置移动端.html.png",
+    "sha256": "ee59049b7a348bd1fdae6bbfb411d7f26a6d3452e22116440eaaeaeb3ef73733",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "报警等级配置.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E6%8A%A5%E8%AD%A6%E7%AD%89%E7%BA%A7%E9%85%8D%E7%BD%AE.html",
+    "status": 200,
+    "title": "报警等级配置",
+    "screenshot": "assets/prototype-captures/20261028-报警等级配置.html.png",
+    "sha256": "0242f95bf75ac2291d2be730e21644e461b68bcf18283334d6349f39cc4b96df",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "数据分析.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90.html",
+    "status": 200,
+    "title": "数据分析",
+    "screenshot": "assets/prototype-captures/20261028-数据分析.html.png",
+    "sha256": "dd7c656d6bc33cb71df2f2bef00d23c6d6324d4c4cd198718bead7c7526d5ddc",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "方案图册.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E6%96%B9%E6%A1%88%E5%9B%BE%E5%86%8C.html",
+    "status": 200,
+    "title": "监测一张图 · AI智能报警处置平台",
+    "screenshot": "assets/prototype-captures/20261028-方案图册.html.png",
+    "sha256": "f7140072885f91c07abdda824b1b86b37d33f097afa6192bd9ca9a629f285e34",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "样本库.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E6%A0%B7%E6%9C%AC%E5%BA%93.html",
+    "status": 200,
+    "title": "样本库",
+    "screenshot": "assets/prototype-captures/20261028-样本库.html.png",
+    "sha256": "180d6facfc178ac34fff78e975840572bdd092dfdaf2e46d8f9017de32d4a98e",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "统计报表.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E7%BB%9F%E8%AE%A1%E6%8A%A5%E8%A1%A8.html",
+    "status": 200,
+    "title": "统计报表",
+    "screenshot": "assets/prototype-captures/20261028-统计报表.html.png",
+    "sha256": "9e74be46b04c1105adf6a8cffb0debfce8959788efadff4462b3ac94cee238c9",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "规格说明书.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6.html",
+    "status": 200,
+    "title": "规格说明书 - AI智能报警处置平台",
+    "screenshot": "assets/prototype-captures/20261028-规格说明书.html.png",
+    "sha256": "266cec95aa325d04737322b29dd72eec2cd57adf89e7cfbaaf6a1620bf40fe93",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "误报类型配置.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E8%AF%AF%E6%8A%A5%E7%B1%BB%E5%9E%8B%E9%85%8D%E7%BD%AE.html",
+    "status": 200,
+    "title": "误报类型配置 - AI智能报警处置平台",
+    "screenshot": "assets/prototype-captures/20261028-误报类型配置.html.png",
+    "sha256": "69907c95a47fff5b4d4764f0a444ea6ddf20ea5c86fb3705152b2f2e5c9b792a",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "责任区域管理.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E8%B4%A3%E4%BB%BB%E5%8C%BA%E5%9F%9F%E7%AE%A1%E7%90%86.html",
+    "status": 200,
+    "title": "责任区域管理",
+    "screenshot": "assets/prototype-captures/20261028-责任区域管理.html.png",
+    "sha256": "58d8527c79eedd5f1b6d2863e58869ff96262aad580c712ea6f89c0dd9a23914",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  },
+  {
+    "file": "隐患违章管理-违章查处.html",
+    "url": "https://hot-gugu.github.io/waiyunpinghu/%E9%9A%90%E6%82%A3%E8%BF%9D%E7%AB%A0%E7%AE%A1%E7%90%86-%E8%BF%9D%E7%AB%A0%E6%9F%A5%E5%A4%84.html",
+    "status": 200,
+    "title": "“三违”无视频不作业智慧管控平台 - 查处管理",
+    "screenshot": "assets/prototype-captures/20261028-隐患违章管理-违章查处.html.png",
+    "sha256": "8225b969672883886e1f4e55be6e3f22c168550fbd339868c4d29ab5cf2bafb3",
+    "captured": "2026-10-28 Asia/Shanghai",
+    "notes": "在线页面实拍；演示数据及历史页面不等同当前开发范围"
+  }
+]
