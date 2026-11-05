@@ -130,7 +130,7 @@
   const renderPicker = () => {
     const tags = picker.people.map(id=>({id,name:personName(id),kind:'person'}));
     document.getElementById('areaOwnerTags').innerHTML = tags.length ? tags.map(tag=>`<button type="button" class="area-owner-tag" data-remove-kind="${tag.kind}" data-remove-id="${tag.id}" aria-label="移除${esc(tag.name)}">${esc(tag.name)} <span aria-hidden="true">×</span></button>`).join('') : '<span class="area-owner-placeholder">请选择人员</span>';
-    document.getElementById('areaOwnerOrgTree').innerHTML = `<button type="button" class="area-org-root" data-org="company"><i class="fa fa-building-o"></i> 深圳中外运物流有限公司</button><button type="button" class="area-org-group" data-org="pinghu">⌄ 平湖物流中心</button>` + departments.filter(dep=>dep.name.includes(orgSearch.value.trim())).map(dep=>`<div class="area-org-department ${org===dep.id?'active':''}"><input type="radio" name="areaOwnerDepartment" value="${dep.id}" ${picker.department===dep.id?'checked':''} aria-label="责任部门：${dep.name}"><button type="button" data-org="${dep.id}"><i class="fa fa-sitemap"></i> ${dep.name}</button></div>`).join('');
+    document.getElementById('areaOwnerOrgTree').innerHTML = `<button type="button" class="area-org-root" data-org="company"><i class="fa fa-building-o"></i> 深圳中外运物流有限公司</button><button type="button" class="area-org-group" data-org="pinghu">⌄ 平湖物流中心</button>` + departments.filter(dep=>dep.name.includes(orgSearch.value.trim())).map(dep=>`<div class="area-org-department ${org===dep.id?'active':''}"><button type="button" data-org="${dep.id}"><i class="fa fa-sitemap"></i> ${dep.name}</button></div>`).join('');
     const rows = pageRows(), total = filtered().length;
     const scopedPeople = orgPeople(), selectedCount = scopedPeople.filter(person => picker.people.includes(person.id)).length;
     document.getElementById('areaOwnerSelectionCount').textContent = `该部门责任人已选${selectedCount}人，未选${scopedPeople.length-selectedCount}人`;
@@ -149,7 +149,6 @@
     const organization=event.target.closest('[data-org]');if(organization){org=organization.dataset.org;page=1;renderPicker();}
   });
   modal.addEventListener('change', event => {
-    if(event.target.name==='areaOwnerDepartment'){picker.department=event.target.value;org=event.target.value;page=1;renderPicker();}
     if(event.target.dataset.person){const id=event.target.dataset.person;picker.people=event.target.checked?[...new Set([...picker.people,id])]:picker.people.filter(value=>value!==id);renderPicker();}
   });
   document.getElementById('areaOwnerAll').onchange = event => { const ids=pageRows().map(person=>person.id);picker.people=event.target.checked?[...new Set([...picker.people,...ids])]:picker.people.filter(id=>!ids.includes(id));renderPicker(); };
