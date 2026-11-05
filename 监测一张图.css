@@ -324,3 +324,5 @@
 .map-alarm-info-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.map-alarm-detail .map-alarm-info-heading .info-title{margin:0}.map-alarm-handling-status{display:flex;justify-content:flex-end;flex:none}
 
 .alarm-scope-filter>.n-cascader{flex:1;min-width:0;width:100%}.event p{overflow-wrap:anywhere}
+
+.floor-event-selector{width:100%;background:#102746;color:#dceaff;border:1px solid #36577f;border-radius:5px;padding:8px;margin:4px 0 10px;font:inherit}.floor-event-selector option{background:#102746;color:#dceaff}
