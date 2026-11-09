@@ -272,7 +272,7 @@
  },template:`
  <n-config-provider :theme-overrides="theme" :locale="zhCN" :date-locale="dateZhCN"><div class="case-stack">
  <n-alert v-if="notice" type="success" :show-icon="true">{{notice}}</n-alert>
- <div class="case-source-tabs" role="tablist" aria-label="查处报警来源"><button type="button" role="tab" :aria-selected="source==='ai'" :class="{active:source==='ai'}" @click="source='ai'">AI视频报警</button><button type="button" role="tab" :aria-selected="source==='fire'" :class="{active:source==='fire'}" @click="source='fire'">消防设备报警</button></div>
+ <div class="case-source-tabs" role="tablist" aria-label="查处报警来源"><button type="button" role="tab" :aria-selected="source==='ai'" :class="{active:source==='ai'}" @click="source='ai'">AI视频</button><button type="button" role="tab" :aria-selected="source==='fire'" :class="{active:source==='fire'}" @click="source='fire'">消防设备</button></div>
  <div v-if="source!=='fire'" class="case-surface case-filters" :class="{'case-filters-collapsed':!expanded,'case-filters--fire':source==='fire'}">
  <div><label>报警时间</label><n-date-picker v-model:value="range" type="datetimerange" clearable to="body" start-placeholder="开始时间" end-placeholder="结束时间" format="yyyy-MM-dd HH:mm" /></div>
  <div><label>报警名称</label><n-select v-model:value="type" :options="typeOptions" clearable placeholder="全部" to="body" consistent-menu-width /></div>
