@@ -326,3 +326,5 @@
 .alarm-scope-filter>.n-cascader{flex:1;min-width:0;width:100%}.event p{overflow-wrap:anywhere}
 
 .floor-event-selector{width:100%;background:#102746;color:#dceaff;border:1px solid #36577f;border-radius:5px;padding:8px;margin:4px 0 10px;font:inherit}.floor-event-selector option{background:#102746;color:#dceaff}
+
+.floor-type-filter{margin:10px 0 14px}.floor-type-filter>label{display:block;color:#9bbde3;font-size:12px;margin-bottom:6px}.floor-type-filter .n-base-selection{--n-color:#102746!important;--n-text-color:#dbeaff!important;--n-border:1px solid #36577f!important;--n-placeholder-color:#91abc9!important}
