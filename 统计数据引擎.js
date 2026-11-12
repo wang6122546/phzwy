@@ -83,11 +83,6 @@
     const grouped=new Map(groups(rows,'date').map(g=>[g.name,g]));const result=[],d=new Date(range[0]);d.setHours(0,0,0,0);
     while(+d<=range[1]&&result.length<366){const name=day(d);result.push(grouped.get(name)||{name,...stats([]),rows:[]});d.setDate(d.getDate()+1);}return result;
   };
-  const csv=(name,headers,rows)=>{
-    const quote=v=>'"'+String(v??'').replaceAll('"','""')+'"';
-    const safeCell=v=>/^[=+@\-\t\r]/.test(String(v??''))?"'"+v:v;
-    const blob=new Blob(['\uFEFF'+[headers,...rows].map(r=>r.map(v=>quote(safeCell(v))).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});download(name,blob);
-  };
   const download=(name,blob)=>{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   const insights=rows=>{
     const s=stats(rows),top=groups(rows.filter(r=>r.confirmed),'area').sort((a,b)=>b.confirmed-a.confirmed)[0];
@@ -99,5 +94,5 @@
     if(s.mis)notes.push('存在 '+s.mis+' 条误报，建议按违规事件类型与场景复查样本、调整识别策略。');
     return notes;
   };
-  window.StatsEngine={isFire,caseEligible,D,day,stamp,time,read,percent,fmt,safe,demo,load,normalize,period,completedPeriod,filter,stats,groups,trend,csv,download,insights};
+  window.StatsEngine={isFire,caseEligible,D,day,stamp,time,read,percent,fmt,safe,demo,load,normalize,period,completedPeriod,filter,stats,groups,trend,download,insights};
 })();

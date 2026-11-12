@@ -89,16 +89,11 @@
     }
     return next;
   };
-  const download=(name,rows)=>{
-    const quote=v=>'"'+String(v??'').replaceAll('"','""')+'"';
-    const safe=v=>/^[=+@\-\t\r]/.test(String(v??''))?"'"+v:v;
-    const url=URL.createObjectURL(new Blob(['\uFEFF'+rows.map(r=>r.map(v=>quote(safe(v))).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));
-    const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-  };
-  const template=type=>download(type==='department'?'部门管辖导入模板.csv':'人员管辖导入模板.csv',type==='department'?
+  const download=(name,rows)=>window.exportWorkbook(name,rows);
+  const template=type=>download(type==='department'?'部门管辖导入模板.xlsx':'人员管辖导入模板.xlsx',type==='department'?
     [['楼栋/场所','楼层','区域','部门名称'],['1#仓库','1层','全部区域','安全环保部'],['1#仓库','2层','货架区、装卸作业区','安全环保部']]:
     [['楼栋/场所','楼层','区域','人员姓名','手机号码'],['1#仓库','1层','货架区','李强','13800001002'],['1#仓库','2层','装卸作业区','王敏','13800001003']]);
-  const directory=()=>download('管辖导入名称对照表.csv',[['楼栋/场所','楼层','区域'],...D.areas.map(a=>{const f=D.floors.find(f=>f.id===a.floorId),b=D.buildings.find(b=>b.id===f.buildingId);return [b.name,f.name,a.name];})]);
+  const directory=()=>download('管辖导入名称对照表.xlsx',[['楼栋/场所','楼层','区域'],...D.areas.map(a=>{const f=D.floors.find(f=>f.id===a.floorId),b=D.buildings.find(b=>b.id===f.buildingId);return [b.name,f.name,a.name];})]);
   let libraryPromise;
   const excel=()=>{
     if(window.XLSX)return Promise.resolve(window.XLSX);
